@@ -1,0 +1,17 @@
+ID: HA300
+_schema-version: '2.1'
+description: HA300
+version: 0.0.1
+
+modules:
+ - name: db
+   type: hdb
+   path: db
+   requires:
+    - name: hdi_db
+
+resources:
+ - name: hdi_db
+   properties:
+      hdi-container-name: ${service-name}
+   type: com.sap.xs.hdi-container
