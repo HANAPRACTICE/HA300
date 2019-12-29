@@ -2,61 +2,67 @@ using Core as EPM;
 using Util;
 
 
+/*@@layout{"layoutInfo":{"x":-306.037109375,"y":-143}}*/
 context MD {
-
-Type HistT {
-        CREATEDBY : Association to Employees;
+    type HistT {
+        CREATEDBY : association to Employees;
         CREATEDAT : EPM.SDate;
-        CHANGEDBY : Association to Employees;
-        CHANGEDAT : EPM.SDate; 
+        CHANGEDBY : association to Employees;
+        CHANGEDAT : EPM.SDate;
     };
-    
- Type NameT {
-        FIRST : EPM.SString;
-        MIDDLE : EPM.SString;
-        LAST : EPM.SString;
+    type NameT {
+        FIRST    : EPM.SString;
+        MIDDLE   : EPM.SString;
+        LAST     : EPM.SString;
         INITIALS : EPM.BusinessKey;
-      };
- type SexT : String(1);
- 
-    Entity Addresses {
-        key  ADDRESSID: EPM.BusinessKey;
-        CITY: EPM.SString;
-        POSTALCODE: EPM.BusinessKey;
-        STREET: EPM.MString;
-        BUILDING: EPM.BusinessKey;
-        COUNTRY: String(3);
-        REGION: String(4);
-        ADDRESSTYPE: String(2);
-        VALIDITY: EPM.ValidityT;   
-        LATITUDE: Double;
-        LONGITUDE: Double; 
-		POINT: hana.ST_POINT;        
-    } technical configuration {
-    	unload priority 8;
     };
-    
-    Entity BusinessPartner {
-        key  PARTNERID: EPM.BusinessKey;
-        PARTNERROLE: String(3); //Business Partner Role
-        EMAILADDRESS: EPM.LString;
-        PHONENUMBER: EPM.PhoneT;
-        FAXNUMBER: EPM.PhoneT null;
-        WEBADDRESS: EPM.VLString;
-        ADDRESSES: Association to Addresses null;
-        COMPANYNAME: String(80);
-        LEGALFORM: EPM.BusinessKey;
-        HISTORY: HistT;
-        CURRENCY: EPM.CurrencyT;
-    } technical configuration {
-    	partition by HASH  (PARTNERID) Partitions GET_NUM_SERVERS();
+    type SexT : String(1);
+
+    entity Addresses {
+        key ADDRESSID   : EPM.BusinessKey;
+            CITY        : EPM.SString;
+            POSTALCODE  : EPM.BusinessKey;
+            STREET      : EPM.MString;
+            BUILDING    : EPM.BusinessKey;
+            COUNTRY     : String(3);
+            REGION      : String(4);
+            ADDRESSTYPE : String(2);
+            VALIDITY    : EPM.ValidityT;
+            LATITUDE    : Double;
+            LONGITUDE   : Double;
+            POINT       : hana.ST_POINT;
+    }
+    technical configuration {
+        unload priority 8;
     };
-    //START CODE 21DEC2019 
-    //MODIFYING IN ORDER TO INCLUDE CONTACTS TABLE FOR EXERCISE HA300
- entity CONTACT {
+
+    /*@@layout{"layoutInfo":{"external":[{"id":"Addresses","sourceName":"ADDRESSES","x":-27.994140625,"y":-135},{"id":"Addresses","sourceName":"COMPANYNAME","x":-27.994140625,"y":-135},{"id":"Addresses","sourceName":"LEGALFORM","x":-27.994140625,"y":-135},{"id":"HistT","sourceName":"HISTORY"},{"id":"HistT","sourceName":"CURRENCY"}]}}*/
+    entity BusinessPartner {
+        key PARTNERID    : EPM.BusinessKey;
+            PARTNERROLE  : String(3); //Business Partner Role
+            EMAILADDRESS : EPM.LString;
+            PHONENUMBER  : EPM.PhoneT;
+            FAXNUMBER    : EPM.PhoneT null;
+            WEBADDRESS   : EPM.VLString;
+            ADDRESSES    : association to Addresses null;
+            COMPANYNAME  : String(80);
+            LEGALFORM    : EPM.BusinessKey;
+            HISTORY      : HistT;
+            CURRENCY     : EPM.CurrencyT;
+    }
+    technical configuration {
+        partition by HASH  (PARTNERID) Partitions GET_NUM_SERVERS();
+    };
+
+    //START CODE 21DEC2019
+    //MODIFYING IN ORDER TO INCLUDE "CONTACT" and "EMAIL" TABLE FOR EXERCISE HA300
+    //These tables will be used in creation of CV's in subsequent exercises
+    //The table data for Contact and Email were also created and are saved in the "LOADS" folder.
+    //The loading of data in the tables are maintained in the MasterData.HDBTABLEDATA file present in the "LOADS" folder
+    entity CONTACT {
         key PARTNERID    : EPM.BusinessKey not null;
-            ADDRESSES: Association to Addresses null;
-            EMAILADDRESS: EPM.LString;
+            ADDRESSES    : association to Addresses null;
+            EMAILADDRESS : EPM.LString;
             FIRST_NAME   : EPM.SString;
             MID_NAME     : EPM.SString;
             LAST_NAME    : EPM.SString;
@@ -67,55 +73,67 @@ Type HistT {
     technical configuration {
         partition by Hash (PARTNERID) partitions GET_NUM_SERVERS();
     };
+    entity EMAIL {
+        key PARTNERID    : EPM.BusinessKey not null;
+            ADDRESSES    : association to Addresses null;
+            EMAILADDRESS : EPM.LString;
+    }
+    technical configuration {
+        partition by Hash (PARTNERID) partitions GET_NUM_SERVERS();
+    };
+
     //END CODE 21DEC2019
-    Entity Employees {
-        key  EMPLOYEEID: EPM.BusinessKey;
-        NAME: NameT null;
-        SEX: SexT;
-        LANGUAGE: EPM.ABAPLanguage;
-        PHONENUMBER: EPM.PhoneT null;
-        EMAILADDRESS: EPM.LString;
-        LOGINNAME: String(12);
-        ADDRESSES: Association to Addresses null;
-        VALIDITY: EPM.ValidityT; 
-        CURRENCY: EPM.CurrencyT;                
-        SALARYAMOUNT: EPM.AmountT;
-        ACCOUNTNUMBER: EPM.BusinessKey;
-        BANKID: EPM.BusinessKey;
-        BANKNAME: EPM.LString;
-        EMPLOYEEPICURL: EPM.LString;
-        FULLNAME: String(100) = NAME.FIRST || ' ' || NAME.LAST;
+    entity Employees {
+        key EMPLOYEEID     : EPM.BusinessKey;
+            NAME           : NameT null;
+            SEX            : SexT;
+            LANGUAGE       : EPM.ABAPLanguage;
+            PHONENUMBER    : EPM.PhoneT null;
+            EMAILADDRESS   : EPM.LString;
+            LOGINNAME      : String(12);
+            ADDRESSES      : association to Addresses null;
+            VALIDITY       : EPM.ValidityT;
+            CURRENCY       : EPM.CurrencyT;
+            SALARYAMOUNT   : EPM.AmountT;
+            ACCOUNTNUMBER  : EPM.BusinessKey;
+            BANKID         : EPM.BusinessKey;
+            BANKNAME       : EPM.LString;
+            EMPLOYEEPICURL : EPM.LString;
+            FULLNAME       : String(100) = NAME.FIRST || ' ' || NAME.LAST;
     };
 
-    Entity Products {
-        key  PRODUCTID: EPM.BusinessKey; 
-		TYPECODE: String(2);
-		CATEGORY: EPM.SString;
-        HISTORY: HistT;
-        NAMEID: EPM.BusinessKey;
-        DESCID: EPM.BusinessKey;
-        SUPPLIER: Association to MD.BusinessPartner;
-        TAXTARIFFCODE: Integer;
-        QUANTITYUNIT: EPM.UnitT;
-        WEIGHTMEASURE: EPM.QuantityT;
-        WEIGHTUNIT: EPM.UnitT; 
-        CURRENCY: EPM.CurrencyT;
-        PRICE: EPM.AmountT;
-        PRODUCTPICURL: EPM.LString null;
-        WIDTH: EPM.QuantityT;
-        DEPTH: EPM.QuantityT;
-        HEIGHT: EPM.QuantityT;
-        DIMENSIONUNIT: EPM.UnitT;
-    } technical configuration {
-    	fulltext index FTI_CATEGORY on (CATEGORY) ASYNC SEARCH ONLY off; 
+    /*@@layout{"layoutInfo":{"external":[{"id":"HistT","sourceName":"HISTORY"},{"id":"HistT","sourceName":"NAMEID"},{"id":"HistT","sourceName":"DESCID"},{"id":"BusinessPartner","sourceName":"SUPPLIER","x":265.361328125,"y":-108},{"id":"BusinessPartner","sourceName":"TAXTARIFFCODE","x":265.361328125,"y":-108},{"id":"BusinessPartner","sourceName":"QUANTITYUNIT","x":265.361328125,"y":-108},{"id":"BusinessPartner","sourceName":"WEIGHTMEASURE","x":265.361328125,"y":-108},{"id":"BusinessPartner","sourceName":"WEIGHTUNIT","x":265.361328125,"y":-108},{"id":"BusinessPartner","sourceName":"CURRENCY","x":265.361328125,"y":-108},{"id":"BusinessPartner","sourceName":"PRICE","x":265.361328125,"y":-108},{"id":"BusinessPartner","sourceName":"PRODUCTPICURL","x":265.361328125,"y":-108},{"id":"BusinessPartner","sourceName":"WIDTH","x":265.361328125,"y":-108},{"id":"BusinessPartner","sourceName":"DEPTH","x":265.361328125,"y":-108},{"id":"BusinessPartner","sourceName":"HEIGHT","x":265.361328125,"y":-108},{"id":"BusinessPartner","sourceName":"DIMENSIONUNIT","x":265.361328125,"y":-108}]}}*/
+    entity Products {
+        key PRODUCTID     : EPM.BusinessKey;
+            TYPECODE      : String(2);
+            CATEGORY      : EPM.SString;
+            HISTORY       : HistT;
+            NAMEID        : EPM.BusinessKey;
+            DESCID        : EPM.BusinessKey;
+            SUPPLIER      : association to MD.BusinessPartner;
+            TAXTARIFFCODE : Integer;
+            QUANTITYUNIT  : EPM.UnitT;
+            WEIGHTMEASURE : EPM.QuantityT;
+            WEIGHTUNIT    : EPM.UnitT;
+            CURRENCY      : EPM.CurrencyT;
+            PRICE         : EPM.AmountT;
+            PRODUCTPICURL : EPM.LString null;
+            WIDTH         : EPM.QuantityT;
+            DEPTH         : EPM.QuantityT;
+            HEIGHT        : EPM.QuantityT;
+            DIMENSIONUNIT : EPM.UnitT;
+    }
+    technical configuration {
+        fulltext index FTI_CATEGORY on (CATEGORY)
+            async
+            search only off;
     };
 
-    Entity productLog{
-     key PRODUCTID: String(10);
-     key LOGID: Integer;
-     key DATETIME: UTCDateTime;
-     key USERNAME: String(20);
-	 LOGTEXT: String(500);
-    }; 
- 
-}; 
+    entity productLog {
+        key PRODUCTID : String(10);
+        key LOGID     : Integer;
+        key DATETIME  : UTCDateTime;
+        key USERNAME  : String(20);
+            LOGTEXT   : String(500);
+    };
+};
