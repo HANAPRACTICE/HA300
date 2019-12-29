@@ -1,0 +1,22 @@
+{
+    "format_version": 1,
+    "imports": [
+        {
+            "target_table": "Customer-SO",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "Customer.csv",
+                "has_header": true
+            },
+            "import_settings": {
+                "import_columns": [
+                    "CUSTID",
+					"NAME",
+					"ACTIVE",
+					"CNTRY_ID",
+					"AGE"
+                ]
+            }
+        }
+    ]
+}

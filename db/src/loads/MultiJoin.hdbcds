@@ -1,0 +1,18 @@
+
+    entity MJ_SALES {
+        key ORDER_ID : Integer;
+            CUSTOMER : String(2);
+            AMOUNT   : Decimal(10, 2);
+    };
+
+    entity MJ_CUSTOMERS {
+        key CUSTOMER_ID   : String(2);
+            CUSTOMER_NAME : String(10);
+            COUNTRY       : String(2);
+    };
+
+    entity MJ_COUNTRIES {
+        key COUNTRY_ID   : String(2);
+            COUNTRY_NAME : String(15);
+            REGION       : String(10);
+    };

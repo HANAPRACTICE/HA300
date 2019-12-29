@@ -2,42 +2,46 @@ using Core as EPM;
 using MD;
 using annotations;
 
+/*@@layout{"layoutInfo":{"x":-470.4560546875,"y":-80}}*/
 context SO {
-   entity Header {
-      key SALESORDERID    : EPM.BusinessKey;
-          ITEMS           : association [ * ] to Item on
-         ITEMS.SALESORDERID = SALESORDERID;
-          HISTORY         : MD.HistT;
-          NOTEID          : EPM.BusinessKey null;
-          PARTNER         : association to MD.BusinessPartner;
-          CURRENCY        : EPM.CurrencyT;
-          GROSSAMOUNT     : EPM.AmountT;
-          NETAMOUNT       : EPM.AmountT;
-          TAXAMOUNT       : EPM.AmountT;
-          LIFECYCLESTATUS : EPM.StatusT;
-          BILLINGSTATUS   : EPM.StatusT;
-          DELIVERYSTATUS  : EPM.StatusT;
-   };
-   entity Item {
-      key SALESORDERID   : EPM.BusinessKey;
-      key SALESORDERITEM : EPM.BusinessKey;
-          HEADER         : association [ 1 ] to Header on
-         HEADER.SALESORDERID = SALESORDERID;
-          PRODUCT        : association to MD.Products;
-          NOTEID         : EPM.BusinessKey null;
-          CURRENCY       : EPM.CurrencyT;
-          GROSSAMOUNT    : EPM.AmountT;
-          NETAMOUNT      : EPM.AmountT;
-          TAXAMOUNT      : EPM.AmountT;
-          ITEMATPSTATUS  : String(1);
-          OPITEMPOS      : EPM.BusinessKey null;
-          QUANTITY       : EPM.QuantityT;
-          QUANTITYUNIT   : EPM.UnitT;
-          DELIVERYDATE   : EPM.SDate;
-   };
-   entity Filter {
-      key MODEL    : String(30);
-      key COLNAME  : String(8);
-          COLVALUE : String(8);
-   };
+    /*@@layout{"layoutInfo":{"external":[{"id":"SO.Item","sourceName":"ITEMS"},{"id":"SO.Item","sourceName":"CUSTID"},{"id":"SO.Item","sourceName":"HISTORY"},{"id":"SO.Item","sourceName":"NOTEID"},{"id":"MD","sourceName":"PARTNER","x":-36.4560546875,"y":-151},{"id":"MD","sourceName":"CURRENCY","x":-36.4560546875,"y":-151},{"id":"MD","sourceName":"GROSSAMOUNT","x":-36.4560546875,"y":-151},{"id":"MD","sourceName":"NETAMOUNT","x":-36.4560546875,"y":-151},{"id":"MD","sourceName":"TAXAMOUNT","x":-36.4560546875,"y":-151},{"id":"MD","sourceName":"LIFECYCLESTATUS","x":-36.4560546875,"y":-151},{"id":"MD","sourceName":"BILLINGSTATUS","x":-36.4560546875,"y":-151},{"id":"MD","sourceName":"DELIVERYSTATUS","x":-36.4560546875,"y":-151}]}}*/
+    entity Header {
+        key SALESORDERID    : EPM.BusinessKey;
+            ITEMS           : association[*] to Item                on ITEMS.SALESORDERID = SALESORDERID;
+            CUSTID          : EPM.BusinessKey;
+            HISTORY         : MD.HistT;
+            NOTEID          : EPM.BusinessKey null;
+            PARTNER         : association    to MD.BusinessPartner;
+            CURRENCY        : EPM.CurrencyT;
+            GROSSAMOUNT     : EPM.AmountT;
+            NETAMOUNT       : EPM.AmountT;
+            TAXAMOUNT       : EPM.AmountT;
+            LIFECYCLESTATUS : EPM.StatusT;
+            BILLINGSTATUS   : EPM.StatusT;
+            DELIVERYSTATUS  : EPM.StatusT;
+    };
+
+    /*@@layout{"layoutInfo":{"external":[{"id":"Header","sourceName":"HEADER","x":117.5439453125,"y":-115},{"id":"MD","sourceName":"PRODUCT"},{"id":"MD","sourceName":"NOTEID"},{"id":"MD","sourceName":"CURRENCY"},{"id":"MD","sourceName":"GROSSAMOUNT"},{"id":"MD","sourceName":"NETAMOUNT"},{"id":"MD","sourceName":"TAXAMOUNT"},{"id":"MD","sourceName":"ITEMATPSTATUS"},{"id":"MD","sourceName":"OPITEMPOS"},{"id":"MD","sourceName":"QUANTITY"},{"id":"MD","sourceName":"QUANTITYUNIT"},{"id":"MD","sourceName":"DELIVERYDATE"}]}}*/
+    entity Item {
+        key SALESORDERID   : EPM.BusinessKey;
+        key SALESORDERITEM : EPM.BusinessKey;
+            HEADER         : association[1] to Header       on HEADER.SALESORDERID = SALESORDERID;
+            PRODUCT        : association    to MD.Products;
+            NOTEID         : EPM.BusinessKey null;
+            CURRENCY       : EPM.CurrencyT;
+            GROSSAMOUNT    : EPM.AmountT;
+            NETAMOUNT      : EPM.AmountT;
+            TAXAMOUNT      : EPM.AmountT;
+            ITEMATPSTATUS  : String(1);
+            OPITEMPOS      : EPM.BusinessKey null;
+            QUANTITY       : EPM.QuantityT;
+            QUANTITYUNIT   : EPM.UnitT;
+            DELIVERYDATE   : EPM.SDate;
+    };
+
+    entity Filter {
+        key MODEL    : String(30);
+        key COLNAME  : String(8);
+            COLVALUE : String(8);
+    };
 };

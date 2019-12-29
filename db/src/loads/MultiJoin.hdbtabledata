@@ -1,0 +1,44 @@
+{
+    "format_version": 1,
+    "imports": [
+        {
+            "target_table": "MJ_SALES",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "MultiJoin_SALES.csv",
+                "has_header": true
+                           },
+            "import_settings": {
+                "import_columns": [
+                    "ORDER_ID","CUSTOMER","AMOUNT"
+                                  ]
+                               }
+        },
+        {
+            "target_table": "MJ_CUSTOMERS",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "MultiJoin_CUSTOMERS.csv",
+                "has_header": true
+                           },
+            "import_settings": {
+                "import_columns": [
+                    "CUSTOMER_ID","CUSTOMER_NAME","COUNTRY"
+                                  ]
+                               }
+        },
+        {
+            "target_table": "MJ_COUNTRIES",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "MultiJoin_COUNTRIES.csv",
+                "has_header": true
+                           },
+            "import_settings": {
+                "import_columns": [
+                    "COUNTRY_ID","COUNTRY_NAME","REGION"
+                                  ]
+                               }
+        }
+           ]
+}

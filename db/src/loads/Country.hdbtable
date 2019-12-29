@@ -1,0 +1,5 @@
+COLUMN TABLE "Country" (
+	"CID" NVARCHAR(10)              COMMENT 'COUNTRY ID',
+	"NAME" NVARCHAR(256)      COMMENT 'COUNTRY NAME',   
+	PRIMARY KEY ("CID") )
+	COMMENT 'Table with Country data for Sales Order' 

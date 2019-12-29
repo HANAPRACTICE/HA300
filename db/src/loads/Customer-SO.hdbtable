@@ -1,0 +1,8 @@
+COLUMN TABLE "Customer-SO" (
+	"CUSTID" INTEGER              COMMENT 'Customer ID',
+	"NAME" NVARCHAR(256)      COMMENT 'Customer Name',   
+	"ACTIVE" TINYINT          COMMENT 'Currently active?',
+	"CNTRY_ID" NVARCHAR(10)   COMMENT 'Customer Country',
+	"AGE" NVARCHAR(2)   COMMENT 'Customer Age',
+	PRIMARY KEY ("CUSTID") )
+	COMMENT 'Table with Customer data for Sales Order' 

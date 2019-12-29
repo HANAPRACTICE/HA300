@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CVC_MJ_SALES" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="MULTI-JOIN CV"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="MJ_CUSTOMERS">
+    <resourceUri>MJ_CUSTOMERS</resourceUri>
+  </DataSource>
+  <DataSource id="MJ_COUNTRIES">
+    <resourceUri>MJ_COUNTRIES</resourceUri>
+  </DataSource>
+  <DataSource id="MJ_SALES">
+    <resourceUri>MJ_SALES</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1_1" cardinality="C1_1" joinType="inner" multiJoinNode="Join_1" multiJoinCentralTable="MJ_SALES" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="CUSTOMER_NAME"/>
+      <viewAttribute id="COUNTRY"/>
+      <viewAttribute id="COUNTRY_NAME"/>
+      <viewAttribute id="CUSTOMER_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="MJ_CUSTOMERS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER_NAME" source="CUSTOMER_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY" source="COUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER_ID" source="CUSTOMER_ID"/>
+    </input>
+    <input node="MJ_COUNTRIES">
+      <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY_NAME" source="COUNTRY_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY" source="COUNTRY_ID"/>
+    </input>
+    <joinAttribute name="COUNTRY"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1_2" cardinality="C1_1" joinType="leftOuter" multiJoinNode="Join_1" multiJoinCentralTable="MJ_SALES" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="ORDER_ID" aggregationType="sum"/>
+      <viewAttribute id="CUSTOMER"/>
+      <viewAttribute id="CUSTOMER_NAME"/>
+      <viewAttribute id="COUNTRY"/>
+      <viewAttribute id="COUNTRY_NAME"/>
+      <viewAttribute id="AMOUNT" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="MJ_SALES">
+      <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_ID" source="ORDER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER" source="CUSTOMER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
+    </input>
+    <input node="Join_1_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER_NAME" source="CUSTOMER_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY" source="COUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY_NAME" source="COUNTRY_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER" source="CUSTOMER_ID"/>
+    </input>
+    <joinAttribute name="CUSTOMER"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_1_2">
+  <attributes>
+    <attribute id="ORDER_ID" key="true" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SALES ORDER NO"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="ORDER_ID"/>
+    </attribute>
+    <attribute id="CUSTOMER" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTOMER NO"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="CUSTOMER"/>
+    </attribute>
+    <attribute id="CUSTOMER_NAME" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTOMER_NAME"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="CUSTOMER_NAME"/>
+    </attribute>
+    <attribute id="COUNTRY" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COUNTRY"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="COUNTRY"/>
+    </attribute>
+    <attribute id="COUNTRY_NAME" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COUNTRY_NAME"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="COUNTRY_NAME"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="AMOUNT" order="6" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="AMOUNT"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="AMOUNT"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="-205" y="-45"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="MJ_SALES" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="148.7451171875"/>
+    </shape>
+    <shape modelObjectName="MJ_CUSTOMERS" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="186.6435546875"/>
+    </shape>
+    <shape modelObjectName="MJ_COUNTRIES" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
+      <upperLeftCorner x="620" y="30"/>
+      <rectangleSize width="178.08740234375"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

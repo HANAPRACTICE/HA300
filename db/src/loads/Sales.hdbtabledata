@@ -5,12 +5,13 @@
             "target_table": "SO.Header",
             "source_data": {
                 "data_type": "CSV",
-                "file_name": "salesOrder.csv",
+                "file_name": "SO.csv",
                 "has_header": true
             },
             "import_settings": {
                 "import_columns": [
                     "SALESORDERID",
+                    "CUSTID",
 					"HISTORY.CREATEDBY.EMPLOYEEID",
 					"HISTORY.CREATEDAT",
 					"HISTORY.CHANGEDBY.EMPLOYEEID",
