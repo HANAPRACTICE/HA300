@@ -1,7 +1,0 @@
-context "3rdPartySales" {
-entity SD {
-        key ORDER_ID : String(10);
-            CURRENCY : String(5);
-            AMOUNT   : Decimal(10, 2);
-    };
-};
