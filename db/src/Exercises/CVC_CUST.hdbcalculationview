@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CVC_CUST" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="CV for UNION with Constant"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="CVC_ACT">
+    <resourceUri>CVC_ACT</resourceUri>
+  </DataSource>
+  <DataSource id="CVC_PLAN">
+    <resourceUri>CVC_PLAN</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <viewAttributes>
+      <viewAttribute id="CUST_ID"/>
+      <viewAttribute id="AMOUNT_A" aggregationType="sum"/>
+      <viewAttribute id="AMOUNT_P" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CVC_ACT">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUST_ID" source="CUST_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT_A" source="AMOUNT_A"/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="AMOUNT_P" null="false" value="0"/>
+    </input>
+    <input node="CVC_PLAN">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUST_ID" source="CUST_ID"/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="AMOUNT_A" null="false" value="0"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT_P" source="AMOUNT_P"/>
+    </input>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Union_1">
+  <attributes>
+    <attribute id="CUST_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUST_ID"/>
+      <keyMapping columnObjectName="Union_1" columnName="CUST_ID"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="AMOUNT_A" order="2" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="AMOUNT ACT"/>
+      <measureMapping columnObjectName="Union_1" columnName="AMOUNT_A"/>
+    </measure>
+    <measure id="AMOUNT_P" order="3" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="AMOUNT PLAN"/>
+      <measureMapping columnObjectName="Union_1" columnName="AMOUNT_P"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="92" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>  

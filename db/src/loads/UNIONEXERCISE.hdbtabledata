@@ -1,0 +1,39 @@
+{
+    "format_version": 1,
+    "imports": [
+    {
+            "target_table": "Unionexercise.ACT",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "Act.csv",
+                "has_header": true
+            },
+            "import_settings": {
+                "import_columns": [
+                    "ORDER_ID",
+                    "CUST_ID",
+					"CURRENCY",
+					"AMOUNT",
+					"FLAG"
+                ]
+            }
+        },
+        {
+            "target_table": "Unionexercise.PLAN",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "Plan.csv",
+                "has_header": true
+            },
+            "import_settings": {
+                "import_columns": [
+                    "ORDER_ID",
+                    "CUST_ID",
+					"CURRENCY",
+					"AMOUNT",
+					"FLAG"
+                ]
+            }
+        }
+    ]
+}

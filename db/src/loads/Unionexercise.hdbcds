@@ -1,0 +1,17 @@
+context Unionexercise {
+    entity ACT {
+        key ORDER_ID : String(10);
+        CUST_ID  : String(10);
+        CURRENCY : String(5);
+        AMOUNT   : Decimal(10, 2);
+        FLAG : String(1);
+    };
+
+    entity PLAN {
+        key ORDER_ID : String(10);
+        CUST_ID  : String(10);
+        CURRENCY : String(5);
+        AMOUNT   : Decimal(10, 2);
+        FLAG : String(1);
+    };
+};

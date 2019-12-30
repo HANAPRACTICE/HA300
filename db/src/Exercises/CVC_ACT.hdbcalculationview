@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CVC_ACT" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="CV Actual"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="Unionexercise.ACT">
+    <resourceUri>Unionexercise.ACT</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+<logicalModel id="Unionexercise.ACT">
+  <attributes>
+    <attribute id="CUST_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUST_ID"/>
+      <keyMapping columnObjectName="Unionexercise.ACT" columnName="CUST_ID"/>
+    </attribute>
+    <attribute id="FLAG" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FLAG"/>
+      <keyMapping columnObjectName="Unionexercise.ACT" columnName="FLAG"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="AMOUNT_A" order="2" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="AMOUNT ACT"/>
+      <measureMapping columnObjectName="Unionexercise.ACT" columnName="AMOUNT"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
