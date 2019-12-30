@@ -45,13 +45,13 @@
       <viewAttribute id="NETAMOUNT" aggregationType="sum"/>
     </viewAttributes>
     <calculatedViewAttributes/>
-    <input node="SAP_ERP_DATA">
+    <input node="SAP_ERP_DATA" emptyUnionBehavior="NO_ROW">
       <mapping xsi:type="Calculation:AttributeMapping" target="CURRENCY" source="CURRENCY"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="GROSSAMOUNT" source="GROSSAMOUNT"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="NETAMOUNT" source="NETAMOUNT"/>
     </input>
-    <input node="3RD_PARTY_DATA">
-      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="CURRENCY" null="true"/>
+    <input node="3RD_PARTY_DATA" emptyUnionBehavior="NO_ROW">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CURRENCY" source="CURRENCY"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="GROSSAMOUNT" source="GROSS_AMOUNT_2"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="NETAMOUNT" source="NET_AMOUNT"/>
     </input>
