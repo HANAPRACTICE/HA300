@@ -1,0 +1,19 @@
+context JoinEx {
+    entity SOrders {
+        key ORDER_ID : Integer;
+            C_ID     : String(2);
+            AMOUNT   : Decimal(10, 2);
+    };
+
+    entity Customer {
+        key C_ID   : String(2);
+            C_NAME : String(10);
+            STATE  : String(2);
+            AGE    : String(2);
+    };
+
+    entity State {
+        key STATE : String(2);
+            SNAME : String(15);
+    };
+};

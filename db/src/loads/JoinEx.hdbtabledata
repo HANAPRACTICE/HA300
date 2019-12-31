@@ -1,0 +1,40 @@
+{
+	"format_version": 1,
+	"imports": [{
+		"target_table": "JoinEx.SOrders",
+		"source_data": {
+			"data_type": "CSV",
+			"file_name": "Join_Order.csv",
+			"has_header": true
+		},
+		"import_settings": {
+			"import_columns": [
+				"ORDER_ID", "C_ID", "AMOUNT"
+			]
+		}
+	}, {
+		"target_table": "JoinEx.Customer",
+		"source_data": {
+			"data_type": "CSV",
+			"file_name": "Join_Customer.csv",
+			"has_header": true
+		},
+		"import_settings": {
+			"import_columns": [
+				"C_ID", "C_NAME", "STATE", "AGE"
+			]
+		}
+	}, {
+		"target_table": "JoinEx.State",
+		"source_data": {
+			"data_type": "CSV",
+			"file_name": "Join_State.csv",
+			"has_header": true
+		},
+		"import_settings": {
+			"import_columns": [
+				"STATE", "SNAME"
+			]
+		}
+	}]
+}
