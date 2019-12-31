@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CVC_INRJ_CS" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="CV Inner Join Cust and State"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="JoinEx.Customer">
+    <resourceUri>JoinEx.Customer</resourceUri>
+  </DataSource>
+  <DataSource id="JoinEx.State">
+    <resourceUri>JoinEx.State</resourceUri>
+  </DataSource>
+  <DataSource id="JoinEx.SOrders">
+    <resourceUri>JoinEx.SOrders</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_N" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="C_ID"/>
+      <viewAttribute id="C_NAME"/>
+      <viewAttribute id="STATE"/>
+      <viewAttribute id="SNAME"/>
+      <viewAttribute id="AGE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="JoinEx.Customer">
+      <mapping xsi:type="Calculation:AttributeMapping" target="C_ID" source="C_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="C_NAME" source="C_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="STATE" source="STATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AGE" source="AGE"/>
+    </input>
+    <input node="JoinEx.State">
+      <mapping xsi:type="Calculation:AttributeMapping" target="SNAME" source="SNAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="STATE" source="STATE"/>
+    </input>
+    <joinAttribute name="STATE"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" cardinality="CN_N" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="ORDER_ID" aggregationType="sum"/>
+      <viewAttribute id="C_ID"/>
+      <viewAttribute id="C_NAME"/>
+      <viewAttribute id="AMOUNT" aggregationType="sum"/>
+      <viewAttribute id="STATE"/>
+      <viewAttribute id="SNAME"/>
+      <viewAttribute id="AGE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="JoinEx.SOrders">
+      <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_ID" source="ORDER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="C_ID" source="C_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
+    </input>
+    <input node="Join_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="C_NAME" source="C_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="STATE" source="STATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SNAME" source="SNAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AGE" source="AGE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="C_ID" source="C_ID"/>
+    </input>
+    <joinAttribute name="C_ID"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_2">
+  <attributes>
+    <attribute id="ORDER_ID" key="true" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ORDER_ID"/>
+      <keyMapping columnObjectName="Join_2" columnName="ORDER_ID"/>
+    </attribute>
+    <attribute id="C_ID" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="C_ID"/>
+      <keyMapping columnObjectName="Join_2" columnName="C_ID"/>
+    </attribute>
+    <attribute id="C_NAME" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="C_NAME"/>
+      <keyMapping columnObjectName="Join_2" columnName="C_NAME"/>
+    </attribute>
+    <attribute id="STATE" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="STATE"/>
+      <keyMapping columnObjectName="Join_2" columnName="STATE"/>
+    </attribute>
+    <attribute id="SNAME" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SNAME"/>
+      <keyMapping columnObjectName="Join_2" columnName="SNAME"/>
+    </attribute>
+    <attribute id="AGE" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="AGE"/>
+      <keyMapping columnObjectName="Join_2" columnName="AGE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="AMOUNT" order="7" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="AMOUNT"/>
+      <measureMapping columnObjectName="Join_2" columnName="AMOUNT"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="92" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="337"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="JoinEx.Customer" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="162.689453125"/>
+    </shape>
+    <shape modelObjectName="JoinEx.State" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="136.0234375"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="JoinEx.SOrders" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="154.03515625"/>
+    </shape>
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="131.84228515625"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
