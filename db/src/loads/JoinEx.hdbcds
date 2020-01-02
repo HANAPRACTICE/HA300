@@ -16,4 +16,15 @@ context JoinEx {
         key STATE : String(2);
             SNAME : String(15);
     };
+
+    entity Prod {
+         SPRAS : String(2);
+            PID   : String(2);
+            DESC  : String(15);
+    };
+        entity Ord {
+        key ORD_ID : Integer;
+            PID   : String(2);
+            VALUE  : Decimal(10,2);
+    };
 };

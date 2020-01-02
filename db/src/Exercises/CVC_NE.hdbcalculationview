@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CVC_NE" applyPrivilegeType="NONE" dataCategory="DIMENSION" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="CV Non Equi join"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="NONEQUI.PRODUCTTOBEDELI">
+    <resourceUri>NONEQUI.PRODUCTTOBEDELI</resourceUri>
+  </DataSource>
+  <DataSource id="NONEQUI.SUBTASKS">
+    <resourceUri>NONEQUI.SUBTASKS</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:NonEquiJoinView" id="NonEquiJoin_1" cardinality="CN_N" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="ID"/>
+      <viewAttribute id="TASK"/>
+      <viewAttribute id="DUEONDATE"/>
+      <viewAttribute id="SUBTASK"/>
+      <viewAttribute id="PLANNEDDATE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="NONEQUI.PRODUCTTOBEDELI">
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="TASK" source="TASK"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DUEONDATE" source="DUEONDATE"/>
+    </input>
+    <input node="NONEQUI.SUBTASKS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="SUBTASK" source="SUBTASK"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PLANNEDDATE" source="PLANNEDDATE"/>
+    </input>
+    <joinAttribute leftColumn="ID" rightColumn="ID" operator="EQ"/>
+    <joinAttribute leftColumn="DUEONDATE" rightColumn="PLANNEDDATE" operator="GT"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="NonEquiJoin_1">
+  <attributes>
+    <attribute id="ID" key="true" order="1">
+      <descriptions defaultDescription="ID"/>
+      <keyMapping columnObjectName="NonEquiJoin_1" columnName="ID"/>
+    </attribute>
+    <attribute id="TASK" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="TASK"/>
+      <keyMapping columnObjectName="NonEquiJoin_1" columnName="TASK"/>
+    </attribute>
+    <attribute id="DUEONDATE" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DUEONDATE"/>
+      <keyMapping columnObjectName="NonEquiJoin_1" columnName="DUEONDATE"/>
+    </attribute>
+    <attribute id="SUBTASK" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SUBTASK"/>
+      <keyMapping columnObjectName="NonEquiJoin_1" columnName="SUBTASK"/>
+    </attribute>
+    <attribute id="PLANNEDDATE" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PLANNEDDATE"/>
+      <keyMapping columnObjectName="NonEquiJoin_1" columnName="PLANNEDDATE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/></logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="92" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="NonEquiJoin_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="NONEQUI.PRODUCTTOBEDELI" modelObjectNameSpace="NonEquiJoin_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="243.12109375"/>
+    </shape>
+    <shape modelObjectName="NONEQUI.SUBTASKS" modelObjectNameSpace="NonEquiJoin_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="188.453125"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

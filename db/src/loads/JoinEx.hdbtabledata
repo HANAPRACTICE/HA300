@@ -1,6 +1,33 @@
 {
 	"format_version": 1,
-	"imports": [{
+	"imports": [
+	{
+		"target_table": "JoinEx.Prod",
+		"source_data": {
+			"data_type": "CSV",
+			"file_name": "Join_Prod.csv",
+			"has_header": true
+		},
+		"import_settings": {
+			"import_columns": [
+				"SPRAS", "PID", "DESC"
+			]
+		}
+	},
+		{
+		"target_table": "JoinEx.Ord",
+		"source_data": {
+			"data_type": "CSV",
+			"file_name": "Join_Ord.csv",
+			"has_header": true
+		},
+		"import_settings": {
+			"import_columns": [
+				"ORD_ID", "PID", "VALUE"
+			]
+		}
+	},
+	{
 		"target_table": "JoinEx.SOrders",
 		"source_data": {
 			"data_type": "CSV",

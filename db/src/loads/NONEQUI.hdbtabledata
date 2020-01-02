@@ -1,0 +1,31 @@
+{
+    "format_version": 1,
+    "imports": [
+        {
+            "target_table": "NONEQUI.PRODUCTTOBEDELI",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "Nonequi_task.csv",
+                "has_header": true
+                           },
+            "import_settings": {
+                "import_columns": [
+                    "ID","TASK","DUEONDATE"
+                                  ]
+                               }
+        },
+        {
+            "target_table": "NONEQUI.SUBTASKS",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "Nonequi_subtask.csv",
+                "has_header": true
+                           },
+            "import_settings": {
+                "import_columns": [
+                    "ID","SUBTASK","PLANNEDDATE"
+                                  ]
+                               }
+        }
+           ]
+}

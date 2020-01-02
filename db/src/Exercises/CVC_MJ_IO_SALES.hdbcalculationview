@@ -4,50 +4,27 @@
 <localVariables/>
 <variableMappings/>
 <dataSources>
-  <DataSource id="MJ_SALES">
-    <resourceUri>MJ_SALES</resourceUri>
-  </DataSource>
   <DataSource id="MJ_CUSTOMERS">
     <resourceUri>MJ_CUSTOMERS</resourceUri>
   </DataSource>
   <DataSource id="MJ_COUNTRIES">
     <resourceUri>MJ_COUNTRIES</resourceUri>
   </DataSource>
+  <DataSource id="MJ_SALES">
+    <resourceUri>MJ_SALES</resourceUri>
+  </DataSource>
 </dataSources>
 <calculationViews>
-  <calculationView xsi:type="Calculation:JoinView" id="Join_1_1" cardinality="C1_1" joinType="leftOuter" multiJoinNode="Join_1" multiJoinCentralTable="MJ_SALES" multiJoinOrder="Inside Out">
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1_1" cardinality="C1_1" joinType="inner" multiJoinNode="Join_1" multiJoinCentralTable="MJ_SALES" multiJoinOrder="Outside In">
     <viewAttributes>
-      <viewAttribute id="ORDER_ID" aggregationType="sum"/>
-      <viewAttribute id="CUSTOMER"/>
-      <viewAttribute id="AMOUNT" aggregationType="sum"/>
-      <viewAttribute id="COUNTRY"/>
-    </viewAttributes>
-    <calculatedViewAttributes/>
-    <input node="MJ_SALES">
-      <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_ID" source="ORDER_ID"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER" source="CUSTOMER"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
-    </input>
-    <input node="MJ_CUSTOMERS">
-      <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY" source="COUNTRY"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER" source="CUSTOMER_ID"/>
-    </input>
-    <joinAttribute name="CUSTOMER"/>
-  </calculationView>
-  <calculationView xsi:type="Calculation:JoinView" id="Join_1_2" cardinality="C1_1" joinType="inner" multiJoinNode="Join_1" multiJoinCentralTable="MJ_SALES" multiJoinOrder="Inside Out">
-    <viewAttributes>
-      <viewAttribute id="ORDER_ID" aggregationType="sum"/>
-      <viewAttribute id="CUSTOMER"/>
       <viewAttribute id="COUNTRY_NAME"/>
       <viewAttribute id="REGION"/>
-      <viewAttribute id="AMOUNT" aggregationType="sum"/>
+      <viewAttribute id="CUSTOMER_ID"/>
       <viewAttribute hidden="true" id="JOIN$COUNTRY$COUNTRY_ID"/>
     </viewAttributes>
     <calculatedViewAttributes/>
-    <input node="Join_1_1">
-      <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_ID" source="ORDER_ID"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER" source="CUSTOMER"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
+    <input node="MJ_CUSTOMERS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER_ID" source="CUSTOMER_ID"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$COUNTRY$COUNTRY_ID" source="COUNTRY"/>
     </input>
     <input node="MJ_COUNTRIES">
@@ -56,6 +33,27 @@
       <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$COUNTRY$COUNTRY_ID" source="COUNTRY_ID"/>
     </input>
     <joinAttribute name="JOIN$COUNTRY$COUNTRY_ID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1_2" cardinality="C1_1" joinType="inner" multiJoinNode="Join_1" multiJoinCentralTable="MJ_SALES" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="ORDER_ID" aggregationType="sum"/>
+      <viewAttribute id="CUSTOMER"/>
+      <viewAttribute id="COUNTRY_NAME"/>
+      <viewAttribute id="REGION"/>
+      <viewAttribute id="AMOUNT" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="MJ_SALES">
+      <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_ID" source="ORDER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER" source="CUSTOMER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT"/>
+    </input>
+    <input node="Join_1_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY_NAME" source="COUNTRY_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REGION" source="REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER" source="CUSTOMER_ID"/>
+    </input>
+    <joinAttribute name="CUSTOMER"/>
   </calculationView>
 </calculationViews>
 <logicalModel id="Join_1_2">
@@ -91,12 +89,12 @@
 <layout>
   <shapes>
     <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
-      <upperLeftCorner x="100" y="105"/>
+      <upperLeftCorner x="92" y="112"/>
     
       <rectangleSize width="160"/>
     </shape>
     <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="6" y="-101"/>
+      <upperLeftCorner x="92" y="217"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape modelObjectName="MJ_COUNTRIES" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
