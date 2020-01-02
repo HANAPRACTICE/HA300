@@ -1,0 +1,13 @@
+context NONEQUI {
+entity PRODUCTTOBEDELI {
+        key ID : Integer;
+            TASK : String(15);
+            DUEONDATE   : LocalDate;
+    };
+
+    entity SUBTASKS {
+         ID   : Integer;
+            SUBTASK : String(15);
+            PLANNEDDATE   : LocalDate;
+    };
+};

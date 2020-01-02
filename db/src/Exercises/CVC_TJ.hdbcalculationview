@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CVC_TJ" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="CV TEXT JOIN"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="JoinEx.Ord">
+    <resourceUri>JoinEx.Ord</resourceUri>
+  </DataSource>
+  <DataSource id="CVD_TJPROD">
+    <resourceUri>CVD_TJPROD</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="C1_1" joinType="textTable" languageColumn="SPRAS">
+    <viewAttributes>
+      <viewAttribute id="ORD_ID" aggregationType="sum"/>
+      <viewAttribute id="PID"/>
+      <viewAttribute id="VALUE" aggregationType="sum"/>
+      <viewAttribute id="SPRAS"/>
+      <viewAttribute id="DESC"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="JoinEx.Ord">
+      <mapping xsi:type="Calculation:AttributeMapping" target="ORD_ID" source="ORD_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PID" source="PID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="VALUE" source="VALUE"/>
+    </input>
+    <input node="CVD_TJPROD">
+      <mapping xsi:type="Calculation:AttributeMapping" target="SPRAS" source="SPRAS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DESC" source="DESC"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PID" source="PID"/>
+    </input>
+    <joinAttribute name="PID"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_1">
+  <attributes>
+    <attribute id="ORD_ID" key="true" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ORD_ID"/>
+      <keyMapping columnObjectName="Join_1" columnName="ORD_ID"/>
+    </attribute>
+    <attribute id="PID" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PID"/>
+      <keyMapping columnObjectName="Join_1" columnName="PID"/>
+    </attribute>
+    <attribute id="SPRAS" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SPRAS"/>
+      <keyMapping columnObjectName="Join_1" columnName="SPRAS"/>
+    </attribute>
+    <attribute id="DESC" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DESC"/>
+      <keyMapping columnObjectName="Join_1" columnName="DESC"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="VALUE" order="5" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="VALUE"/>
+      <measureMapping columnObjectName="Join_1" columnName="VALUE"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="92" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="JoinEx.Ord" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="128.013671875"/>
+    </shape>
+    <shape modelObjectName="CVD_TJPROD" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="144.68359375"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
