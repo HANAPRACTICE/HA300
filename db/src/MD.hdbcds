@@ -144,4 +144,10 @@ context MD {
         key USERNAME  : String(20);
             LOGTEXT   : String(500);
     };
+    entity Cities {
+        City : String(25);
+        Capital     : String(25);
+        Country  : String(25);
+        MANDT  : String(3);
+    };
 };

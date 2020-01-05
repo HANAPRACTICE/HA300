@@ -1,6 +1,23 @@
 {
 	"format_version": 1,
-	"imports": [{
+	"imports": [
+	{
+		"target_table": "MD.Cities",
+		"source_data": {
+			"data_type": "CSV",
+			"file_name": "Cities.csv",
+			"has_header": true
+		},
+		"import_settings": {
+			"import_columns": [
+				"City",
+				"Capital",
+				"Country",
+				"MANDT"
+			]
+		}
+	},
+	{
 		"target_table": "MD.CONTACT",
 		"source_data": {
 			"data_type": "CSV",
