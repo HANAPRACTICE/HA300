@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" id="CVC_PRODUCT_SALES_ANALYSIS" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="PRODUCT SALES ANALYSIS"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="SO.Item">
+    <resourceUri>SO.Item</resourceUri>
+  </DataSource>
+  <DataSource id="MD.Products">
+    <resourceUri>MD.Products</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_1" joinType="leftOuter">
+    <viewAttributes>
+      <viewAttribute id="CURRENCY"/>
+      <viewAttribute id="PRODUCT_TEXT"/>
+      <viewAttribute id="CATEGORY"/>
+      <viewAttribute id="TOTAL_SALES" aggregationType="sum"/>
+      <viewAttribute hidden="true" id="JOIN$PRODUCT.PRODUCTID$PRODUCTID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="SO.Item">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CURRENCY" source="CURRENCY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="TOTAL_SALES" source="GROSSAMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PRODUCT.PRODUCTID$PRODUCTID" source="PRODUCT.PRODUCTID"/>
+    </input>
+    <input node="MD.Products">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_TEXT" source="PRODUCT_TEXT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CATEGORY" source="CATEGORY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PRODUCT.PRODUCTID$PRODUCTID" source="PRODUCTID"/>
+    </input>
+    <joinAttribute name="JOIN$PRODUCT.PRODUCTID$PRODUCTID"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_1">
+  <attributes>
+    <attribute id="CURRENCY" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CURRENCY"/>
+      <keyMapping columnObjectName="Join_1" columnName="CURRENCY"/>
+    </attribute>
+    <attribute id="CATEGORY" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CATEGORY"/>
+      <keyMapping columnObjectName="Join_1" columnName="CATEGORY"/>
+    </attribute>
+    <attribute id="PRODUCT_TEXT" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRODUCT_TEXT"/>
+      <keyMapping columnObjectName="Join_1" columnName="PRODUCT_TEXT"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="TOTAL_SALES" order="4" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="TOTAL_SALES"/>
+      <measureMapping columnObjectName="Join_1" columnName="TOTAL_SALES"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures>
+    <measure id="INPUT_DEVICE_SALES_SHARE" order="7" aggregationType="sum" measureType="simple" datatype="DECIMAL" length="4" scale="2" expressionLanguage="SQL">
+      <descriptions defaultDescription="Percentage Share of Input Devices out of the Total Sales"/>
+      <formula>&quot;INPUT_DEVICE_SALES&quot; / &quot;TOTAL_SALES&quot;</formula>
+      </measure>
+    <measure id="COMPUTER_SALES_SHARE" order="8" aggregationType="sum" measureType="simple" datatype="DECIMAL" length="4" scale="2" expressionLanguage="SQL">
+      <descriptions defaultDescription="Percentage Share of Computers out of the Total Sales"/>
+      <formula>&quot;COMPUTER_SALES&quot; / &quot;TOTAL_SALES&quot;</formula>
+      </measure>
+  </calculatedMeasures>
+  <restrictedMeasures>
+    <measure id="INPUT_DEVICE_SALES" order="5" aggregationType="sum" datatype="DECIMAL" length="15" scale="2" baseMeasure="TOTAL_SALES">
+      <descriptions defaultDescription="Total Sales for Input Devices"/>
+      <restriction logicalOperator="AND">
+        <filter xsi:type="Privilege:AttributeFilter" attributeName="CATEGORY">
+          <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Keyboards"/>
+        </filter>
+        <attributeName>CATEGORY</attributeName>
+      </restriction>
+      <restriction logicalOperator="AND">
+        <filter xsi:type="Privilege:AttributeFilter" attributeName="CATEGORY">
+          <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Mice"/>
+        </filter>
+        <attributeName>CATEGORY</attributeName>
+      </restriction>
+      </measure>
+    <measure id="COMPUTER_SALES" hidden="false" order="6" aggregationType="sum" datatype="DECIMAL" length="15" scale="2" baseMeasure="TOTAL_SALES" restrictionExpressionLanguage="SQL">
+      <descriptions defaultDescription="Total Sales for Workstations and Laptops"/>
+      <restrictionExpression>&quot;CATEGORY&quot;='Notebooks' or &quot;CATEGORY&quot;='PC' or &quot;CATEGORY&quot;='Workstation ensemble'</restrictionExpression>
+      </measure>
+  </restrictedMeasures>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="80" y="240"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="SO.Item" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="207.6123046875"/>
+    </shape>
+    <shape modelObjectName="MD.Products" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="278.97265625"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

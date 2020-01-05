@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CVC_DJ" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="CV for Dynamic Join"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="DJ.Product">
+    <resourceUri>DJ.Product</resourceUri>
+  </DataSource>
+  <DataSource id="Aggregation_2$$$$DJ.Product$$">
+    <resourceUri>DJ.Product</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <viewAttributes>
+      <viewAttribute id="REGION"/>
+      <viewAttribute id="COUNTRY"/>
+      <viewAttribute id="PRODUCT"/>
+      <viewAttribute id="SALES" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="DJ.Product"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_2">
+    <viewAttributes>
+      <viewAttribute id="REGION"/>
+      <viewAttribute id="COUNTRY"/>
+      <viewAttribute id="TOT_SALES" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="Aggregation_2$$$$DJ.Product$$">
+      <mapping xsi:type="Calculation:AttributeMapping" target="TOT_SALES" source="SALES"/>
+    </input>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="C1_1" dynamic="false" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="REGION"/>
+      <viewAttribute id="PRODUCT"/>
+      <viewAttribute id="SALES" aggregationType="sum"/>
+      <viewAttribute id="TOT_SALES" aggregationType="sum"/>
+      <viewAttribute hidden="true" id="JOIN$COUNTRY$COUNTRY"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Aggregation_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="REGION" source="REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SALES" source="SALES"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$COUNTRY$COUNTRY" source="COUNTRY"/>
+    </input>
+    <input node="Aggregation_2">
+      <mapping xsi:type="Calculation:AttributeMapping" target="TOT_SALES" source="TOT_SALES"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REGION" source="REGION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$COUNTRY$COUNTRY" source="COUNTRY"/>
+    </input>
+    <joinAttribute name="REGION"/>
+    <joinAttribute name="JOIN$COUNTRY$COUNTRY"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_1">
+  <attributes>
+    <attribute id="REGION" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REGION"/>
+      <keyMapping columnObjectName="Join_1" columnName="REGION"/>
+    </attribute>
+    <attribute id="PRODUCT" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRODUCT"/>
+      <keyMapping columnObjectName="Join_1" columnName="PRODUCT"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="SALES" order="3" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="SALES"/>
+      <measureMapping columnObjectName="Join_1" columnName="SALES"/>
+    </measure>
+    <measure id="TOT_SALES" order="4" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="SALES"/>
+      <measureMapping columnObjectName="Join_1" columnName="TOT_SALES"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures>
+    <measure id="SHARE" order="5" aggregationType="sum" measureType="simple" datatype="DECIMAL" length="5" scale="2" expressionLanguage="SQL">
+      <formula>&quot;SALES&quot;/&quot;TOT_SALES&quot;</formula>
+      </measure>
+  </calculatedMeasures>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="221" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="356"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Aggregation_2" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="302" y="356"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="215" y="202"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="148.01171875"/>
+    </shape>
+    <shape modelObjectName="Aggregation_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="149.37890625"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

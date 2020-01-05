@@ -1,0 +1,14 @@
+context DJ {
+    entity Sales {
+        REGION  : String(3);
+        COUNTRY : String(10);
+        SALES   : Decimal(5, 2);
+    };
+
+    entity Product {
+        REGION  : String(3);
+        COUNTRY : String(10);
+        PRODUCT : String(10);
+        SALES   : Decimal(5, 2);
+    };
+};

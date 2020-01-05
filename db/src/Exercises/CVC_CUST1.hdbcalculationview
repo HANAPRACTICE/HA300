@@ -20,13 +20,13 @@
       <viewAttribute datatype="VARCHAR" length="10" id="STATUS"/>
     </viewAttributes>
     <calculatedViewAttributes/>
-    <input node="CVC_ACT">
+    <input node="CVC_ACT" emptyUnionBehavior="NO_ROW">
       <mapping xsi:type="Calculation:AttributeMapping" target="CUST_ID" source="CUST_ID"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT_A"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="FLAG" source="FLAG"/>
       <mapping xsi:type="Calculation:ConstantAttributeMapping" target="STATUS" null="false" value="ACTUAL"/>
     </input>
-    <input node="CVC_PLAN">
+    <input node="CVC_PLAN" emptyUnionBehavior="ROW_WITH_CONSTANTS">
       <mapping xsi:type="Calculation:AttributeMapping" target="CUST_ID" source="CUST_ID"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="AMOUNT" source="AMOUNT_P"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="FLAG" source="FLAG"/>

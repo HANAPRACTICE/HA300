@@ -1,0 +1,31 @@
+{
+    "format_version": 1,
+    "imports": [
+    {
+            "target_table": "DJ.Sales",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "DJ-Sales.csv",
+                "has_header": true
+            },
+            "import_settings": {
+                "import_columns": [
+                    "REGION","COUNTRY","SALES"
+                ]
+            }
+        },
+        {
+            "target_table": "DJ.Product",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "DJ-Product.csv",
+                "has_header": true
+            },
+            "import_settings": {
+                "import_columns": [
+                    "REGION","COUNTRY",	"PRODUCT","SALES"
+                ]
+            }
+        }
+    ]
+}

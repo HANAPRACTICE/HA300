@@ -109,7 +109,15 @@ context MD {
             CATEGORY      : EPM.SString;
             HISTORY       : HistT;
             NAMEID        : EPM.BusinessKey;
-            DESCID        : EPM.BusinessKey;
+           DESCID        : EPM.BusinessKey;
+            //Changed on date- 4th Day of Jan 2020.
+            //Change Begin
+            // to include the Product description for Exercise 9 of HA300
+            PRODUCT_TEXT: EPM.VLString null;
+            PRODUCT_DESC: EPM.VLString null;
+            
+            //Change end
+            
             SUPPLIER      : association to MD.BusinessPartner;
             TAXTARIFFCODE : Integer;
             QUANTITYUNIT  : EPM.UnitT;

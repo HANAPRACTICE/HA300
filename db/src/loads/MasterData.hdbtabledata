@@ -117,7 +117,7 @@
 		"target_table": "MD.Products",
 		"source_data": {
 			"data_type": "CSV",
-			"file_name": "products.csv",
+			"file_name": "Productwithtext.csv",
 			"has_header": true
 		},
 		"import_settings": {
@@ -129,8 +129,9 @@
 				"HISTORY.CREATEDAT",
 				"HISTORY.CHANGEDBY.EMPLOYEEID",
 				"HISTORY.CHANGEDAT",
-				"NAMEID",
-				"DESCID",
+				"NAMEID","DESCID",
+				"PRODUCT_TEXT",
+				"PRODUCT_DESC",
 				"SUPPLIER.PARTNERID",
 				"TAXTARIFFCODE",
 				"QUANTITYUNIT",
