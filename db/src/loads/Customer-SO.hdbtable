@@ -1,5 +1,5 @@
 COLUMN TABLE "Customer-SO" (
-	"CUSTID" INTEGER              COMMENT 'Customer ID',
+	"CUSTID" NVARCHAR(10)              COMMENT 'Customer ID',
 	"NAME" NVARCHAR(256)      COMMENT 'Customer Name',   
 	"ACTIVE" TINYINT          COMMENT 'Currently active?',
 	"CNTRY_ID" NVARCHAR(10)   COMMENT 'Customer Country',
