@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_CAMPAIGN_ANALYSIS02" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_CAMPAIGNN_ANALYSIS" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
 <descriptions defaultDescription="Email Campaign Analysis"/>
 <localVariables>
-  <variable id="INP_EMAIL_DATE" parameter="true">
-    <descriptions defaultDescription="The date when the e-mail was sent"/>
-    <variableProperties datatype="DATE" mandatory="false" defaultValue="" length="10" scale="null">
-      <valueDomain type="Date"/>
-      <selection multiLine="false" type="SingleValue"/>
-      <derivationRule inputEnabled="true">
-        <resourceUri>SO.Item</resourceUri>
-        <resultElementName>DELIVERYDATE</resultElementName>
-      </derivationRule>
+  <variable id="VAR_CUSTOMER">
+    <descriptions defaultDescription="CUSTOMER"/>
+    <variableProperties datatype="NVARCHAR" length="256" scale="NaN" mandatory="true" defaultValue="">
+      <valueDomain type="AttributeValue">
+        <externalLikeStructureName>Customer-SO</externalLikeStructureName>
+        <externalLikeElementName>NAME</externalLikeElementName>
+      </valueDomain>
+      <selection multiLine="true" type="SingleValue"/>
     </variableProperties>
   </variable>
 </localVariables>
@@ -29,8 +28,6 @@
       <viewAttribute id="CUSTOMER_NAME"/>
       <viewAttribute id="CURRENCY"/>
       <viewAttribute id="GROSSAMOUNT" aggregationType="sum"/>
-      <viewAttribute id="SALE_DATE"/>
-      <viewAttribute id="SALESORDERID"/>
       <viewAttribute hidden="true" id="JOIN$CUSTID$CUSTID"/>
     </viewAttributes>
     <calculatedViewAttributes/>
@@ -41,8 +38,6 @@
     <input node="SO.Header">
       <mapping xsi:type="Calculation:AttributeMapping" target="CURRENCY" source="CURRENCY"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="GROSSAMOUNT" source="GROSSAMOUNT"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="SALE_DATE" source="HISTORY.CHANGEDAT"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="SALESORDERID" source="SALESORDERID"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CUSTID$CUSTID" source="CUSTID"/>
     </input>
     <joinAttribute name="JOIN$CUSTID$CUSTID"/>
@@ -51,30 +46,16 @@
 <logicalModel id="Join_1">
   <attributes>
     <attribute id="CUSTOMER_NAME" order="1" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="CUSTOMER_NAME"/>
+      <descriptions defaultDescription="Customer Name"/>
+      <localVariable>VAR_CUSTOMER</localVariable>
       <keyMapping columnObjectName="Join_1" columnName="CUSTOMER_NAME"/>
     </attribute>
     <attribute id="CURRENCY" order="2" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="CURRENCY"/>
       <keyMapping columnObjectName="Join_1" columnName="CURRENCY"/>
     </attribute>
-    <attribute id="SALE_DATE" order="4" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="HISTORY_CHANGEDAT"/>
-      <keyMapping columnObjectName="Join_1" columnName="SALE_DATE"/>
-    </attribute>
-    <attribute id="SALESORDERID" order="5" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="SALESORDERID"/>
-      <keyMapping columnObjectName="Join_1" columnName="SALESORDERID"/>
-    </attribute>
   </attributes>
-  <calculatedAttributes>
-    <calculatedAttribute id="DAYS_ELAPSED" order="6" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="Days between Sale Date and e-mail"/>
-      <keyCalculation datatype="INTEGER" expressionLanguage="SQL">
-        <formula>DAYS_BETWEEN(&quot;SALE_DATE&quot;, TO_DATE('$$INP_EMAIL_DATE$$'))</formula>
-      </keyCalculation>
-    </calculatedAttribute>
-  </calculatedAttributes>
+  <calculatedAttributes/>
   <baseMeasures>
     <measure id="GROSSAMOUNT" order="3" aggregationType="sum" measureType="simple">
       <descriptions defaultDescription="GROSSAMOUNT"/>
