@@ -1,0 +1,6 @@
+COLUMN TABLE "Citi" (
+	"City" VARCHAR(50)              COMMENT 'City',
+	"Country" VARCHAR(50)      COMMENT 'Country',
+	"Region" VARCHAR(50) COMMENT 'Region'
+ )
+	COMMENT 'Table with City data '

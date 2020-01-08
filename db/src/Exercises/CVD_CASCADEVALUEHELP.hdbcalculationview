@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" id="CVD_CASCADEVALUEHELP" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="CascadeValuehelp"/>
+<localVariables>
+  <variable id="IP_Country_Cascade" parameter="true">
+    <descriptions defaultDescription="Country"/>
+    <variableProperties datatype="VARCHAR" length="50" scale="NaN" mandatory="true" defaultValue="">
+      <valueDomain type="AttributeValue">
+        <externalLikeStructureName>Citi</externalLikeStructureName>
+        <externalLikeElementName>Country</externalLikeElementName>
+      </valueDomain>
+      <selection multiLine="false" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+</localVariables>
+<variableMappings>
+  <mapping xsi:type="Variable:VariableMapping" dataSource="CVD_VALUEHELP_CITY">
+    <targetVariable name="IP_Country" resourceUri="CVD_VALUEHELP_CITY"/>
+    <localVariable>IP_Country_Cascade</localVariable>
+  </mapping>
+</variableMappings>
+<dataSources>
+  <DataSource id="CVD_VALUEHELP_CITY">
+    <resourceUri>CVD_VALUEHELP_CITY</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+<logicalModel id="CVD_VALUEHELP_CITY" filterExpressionLanguage="SQL">
+  <attributes>
+    <attribute id="City" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="City"/>
+      <keyMapping columnObjectName="CVD_VALUEHELP_CITY" columnName="City"/>
+    </attribute>
+    <attribute id="Country" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Country"/>
+      <keyMapping columnObjectName="CVD_VALUEHELP_CITY" columnName="Country"/>
+    </attribute>
+    <attribute id="Region" order="3" displayAttribute="false" attributeHierarchyActive="false" semanticType="empty" descriptionColumnName="Region" hidden="true">
+      <descriptions defaultDescription="Region"/>
+      <keyMapping columnObjectName="CVD_VALUEHELP_CITY" columnName="Region"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+
+  <filter>&quot;Country&quot;='$$IP_Country_Cascade$$'and &quot;Region&quot;='Western Europe'</filter>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

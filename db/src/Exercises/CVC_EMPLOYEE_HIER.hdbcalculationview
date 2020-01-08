@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:DataFoundation="http://www.sap.com/ndb/BiModelDataFoundation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" id="CVC_EMPLOYEE_HIER" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="EMPLOYEE HIERARCHY"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="Emp.Employee">
+    <resourceUri>Emp.Employee</resourceUri>
+  </DataSource>
+  <DataSource id="Emp.Employee_Hierarchy">
+    <resourceUri>Emp.Employee_Hierarchy</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="C1_N" joinType="leftOuter">
+    <viewAttributes>
+      <viewAttribute id="DNUMBER"/>
+      <viewAttribute id="NAME"/>
+      <viewAttribute id="REMAINDERDAYS"/>
+      <viewAttribute id="PARENT_DNUMBER"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Emp.Employee">
+      <mapping xsi:type="Calculation:AttributeMapping" target="DNUMBER" source="DNUMBER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NAME" source="NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REMAINDERDAYS" source="REMAINDERDAYS"/>
+    </input>
+    <input node="Emp.Employee_Hierarchy">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_DNUMBER" source="PARENT_DNUMBER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DNUMBER" source="CHILD_DNUMBER"/>
+    </input>
+    <joinAttribute name="DNUMBER"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_1">
+  <attributes>
+    <attribute id="DNUMBER" order="1" descriptionColumnName="NAME" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DNUMBER"/>
+      <keyMapping columnObjectName="Join_1" columnName="DNUMBER"/>
+    </attribute>
+    <attribute id="NAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NAME"/>
+      <keyMapping columnObjectName="Join_1" columnName="NAME"/>
+    </attribute>
+    <attribute id="PARENT_DNUMBER" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PARENT_DNUMBER"/>
+      <keyMapping columnObjectName="Join_1" columnName="PARENT_DNUMBER"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="REMAINDERDAYS" order="3" aggregationType="count" measureType="simple">
+      <descriptions defaultDescription="REMAINDERDAYS"/>
+      <measureMapping columnObjectName="Join_1" columnName="REMAINDERDAYS"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions>
+    <localDimension id="EMPLOYEE_HIERARCHY">
+      <attributeRef xsi:type="DataFoundation:Attribute">DNUMBER</attributeRef>
+      <attributeRef xsi:type="DataFoundation:Attribute">PARENT_DNUMBER</attributeRef>
+      <hierarchies>
+        <hierarchy xsi:type="Dimension:ParentChildHierarchy" id="EMPLOYEE_HIERARCHY" aggregateAllNodes="true" orphanedNodesHandling="ROOT_NODES" rootNodeVisibility="ADD_ROOT_NODE_IF_DEFINED" cacheEnabled="true" cycleHandling="BREAKUP" emptyValueIsNull="true">
+          <descriptions defaultDescription="EMPLOYEE PARENT CHILD HIERARCHY"/>
+          <unassignedMemberProperties mode="FALSE"/>
+          <attributeParentPair attribute="DNUMBER" parentAttribute="PARENT_DNUMBER"/>
+        </hierarchy>
+      </hierarchies>
+    </localDimension>
+  </localDimensions>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="64" y="199"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Emp.Employee" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="181.1435546875"/>
+    </shape>
+    <shape modelObjectName="Emp.Employee_Hierarchy" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="212.06640625"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

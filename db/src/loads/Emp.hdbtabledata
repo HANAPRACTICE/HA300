@@ -1,0 +1,31 @@
+{
+    "format_version": 1,
+    "imports": [
+       {
+            "target_table": "Emp.Employee",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "Emp1.csv",
+                "has_header": true
+            },
+            "import_settings": {
+                "import_columns": [
+                    "DNUMBER","NAME","REMAINDERDAYS"
+                ]
+            }
+        },
+        {
+            "target_table": "Emp.Employee_Hierarchy",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "Emp2.csv",
+                "has_header": true
+            },
+            "import_settings": {
+                "import_columns": [
+                    "PARENT_DNUMBER","VALID_FROM_DATE","VALID_TO_DATE","CHILD_DNUMBER"
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:DataFoundation="http://www.sap.com/ndb/BiModelDataFoundation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" id="CVC_SALES_HIER" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="CVC_SALES_HIER"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="SO.Item">
+    <resourceUri>SO.Item</resourceUri>
+  </DataSource>
+  <DataSource id="CVD_PRODUCT_HIER">
+    <resourceUri>CVD_PRODUCT_HIER</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_1" joinType="leftOuter">
+    <viewAttributes>
+      <viewAttribute id="SALESORDERID"/>
+      <viewAttribute id="PRODUCT_PRODUCTID"/>
+      <viewAttribute id="GROSSAMOUNT" aggregationType="sum"/>
+      <viewAttribute id="QUANTITY" aggregationType="sum"/>
+    
+      <viewAttribute id="PRODUCT_TEXT"/>
+      <viewAttribute id="PROD_CATEGORY"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="SO.Item">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_PRODUCTID" source="PRODUCT.PRODUCTID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="GROSSAMOUNT" source="GROSSAMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QUANTITY" source="QUANTITY"/>
+    
+      <mapping xsi:type="Calculation:AttributeMapping" target="SALESORDERID" source="SALESORDERID"/>
+    </input>
+    <input node="CVD_PRODUCT_HIER">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_TEXT" source="PRODUCT_TEXT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PROD_CATEGORY" source="PROD_CATEGORY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_PRODUCTID" source="PRODUCTID"/>
+    </input>
+    <joinAttribute name="PRODUCT_PRODUCTID"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_1">
+  <attributes>
+    <attribute id="SALESORDERID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SALESORDERID"/>
+      <keyMapping columnObjectName="Join_1" columnName="SALESORDERID"/>
+    </attribute>
+    <attribute id="PRODUCT_PRODUCTID" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRODUCT_PRODUCTID"/>
+      <keyMapping columnObjectName="Join_1" columnName="PRODUCT_PRODUCTID"/>
+    </attribute>
+    <attribute id="PRODUCT_TEXT" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRODUCT_TEXT"/>
+      <keyMapping columnObjectName="Join_1" columnName="PRODUCT_TEXT"/>
+    </attribute>
+    <attribute id="PROD_CATEGORY" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PROD_CATEGORY"/>
+      <keyMapping columnObjectName="Join_1" columnName="PROD_CATEGORY"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="GROSSAMOUNT" order="5" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="GROSSAMOUNT"/>
+      <measureMapping columnObjectName="Join_1" columnName="GROSSAMOUNT"/>
+    </measure>
+    <measure id="QUANTITY" order="6" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="QUANTITY"/>
+      <measureMapping columnObjectName="Join_1" columnName="QUANTITY"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions>
+    <localDimension id="PROD_LEV_HIER">
+      <attributeRef xsi:type="DataFoundation:Attribute">PROD_CATEGORY</attributeRef>
+      <attributeRef xsi:type="DataFoundation:Attribute">PRODUCT_TEXT</attributeRef>
+      <hierarchies>
+        <hierarchy xsi:type="Dimension:LeveledHierarchy" id="PROD_LEV_HIER" aggregateAllNodes="true" orphanedNodesHandling="ROOT_NODES" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="LEVEL_NAME_ENFORCED" cacheEnabled="true" cycleHandling="BREAKUP" emptyValueIsNull="true">
+          <descriptions defaultDescription="Product Level Hierarchy"/>
+          <levels>
+            <level levelAttribute="PROD_CATEGORY" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="PROD_CATEGORY" sortDirection="ASC"/>
+            <level levelAttribute="PRODUCT_TEXT" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="PRODUCT_TEXT" sortDirection="ASC"/>
+          </levels>
+        </hierarchy>
+      </hierarchies>
+    </localDimension>
+  </localDimensions>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="92" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="SO.Item" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="207"/>
+    </shape>
+    <shape modelObjectName="CVD_PRODUCT_HIER" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="190"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

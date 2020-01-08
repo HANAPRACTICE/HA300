@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" id="CVD_PRODUCT_HIER" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="CVD_PRODUCT_HIER"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="MD.Products">
+    <resourceUri>MD.Products</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+<inlineHierarchy xsi:type="Dimension:LeveledHierarchy" id="PROD_LEV_HIER" aggregateAllNodes="true" orphanedNodesHandling="ROOT_NODES" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="LEVEL_NAME_ENFORCED" cacheEnabled="true" cycleHandling="BREAKUP" emptyValueIsNull="true">
+  <descriptions defaultDescription="Product Level Hierarchy"/>
+  <unassignedMemberProperties mode="FALSE">
+    <caption label=""/>
+    <nullCaption label=""/>
+  </unassignedMemberProperties>
+  <levels>
+    <level levelAttribute="PROD_CATEGORY" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="PROD_CATEGORY" sortDirection="ASC"/>
+    <level levelAttribute="PRODUCT_TEXT" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="PRODUCT_TEXT" sortDirection="ASC"/>
+  </levels>
+</inlineHierarchy>
+<logicalModel id="MD.Products">
+  <attributes>
+    <attribute id="PRODUCTID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRODUCTID"/>
+      <keyMapping columnObjectName="MD.Products" columnName="PRODUCTID"/>
+    </attribute>
+    <attribute id="PRODUCT_TEXT" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PRODUCT_TEXT"/>
+      <keyMapping columnObjectName="MD.Products" columnName="PRODUCT_TEXT"/>
+    </attribute>
+    <attribute id="PROD_CATEGORY" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CATEGORY"/>
+      <keyMapping columnObjectName="MD.Products" columnName="CATEGORY"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

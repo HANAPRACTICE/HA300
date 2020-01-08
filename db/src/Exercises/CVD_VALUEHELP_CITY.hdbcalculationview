@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CVD_VALUEHELP_CITY" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="VALUEHELP_CITY"/>
+<localVariables>
+  <variable id="IP_REGION" parameter="true">
+    <descriptions defaultDescription="Region"/>
+    <variableProperties datatype="VARCHAR" length="50" scale="NaN" mandatory="true" defaultValue="">
+      <valueDomain type="AttributeValue">
+        <externalLikeStructureName>Citi</externalLikeStructureName>
+        <externalLikeElementName>Region</externalLikeElementName>
+      </valueDomain>
+      <selection multiLine="false" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+</localVariables>
+<variableMappings/>
+<dataSources>
+  <DataSource id="Citi">
+    <resourceUri>Citi</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+<logicalModel id="Citi" filterExpressionLanguage="SQL">
+  <attributes>
+    <attribute id="Region" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Region"/>
+      <keyMapping columnObjectName="Citi" columnName="Region"/>
+    </attribute>
+    <attribute id="City" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="City"/>
+      <keyMapping columnObjectName="Citi" columnName="City"/>
+    </attribute>
+    <attribute id="Country" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Country"/>
+      <keyMapping columnObjectName="Citi" columnName="Country"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+
+  <filter>&quot;Region&quot; = '$$IP_REGION$$'</filter>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

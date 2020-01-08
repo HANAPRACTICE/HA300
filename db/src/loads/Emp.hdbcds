@@ -1,0 +1,14 @@
+context Emp {
+entity Employee {
+	DNUMBER  : String(6);
+    NAME : String(30);
+    REMAINDERDAYS : String(6);
+};
+entity Employee_Hierarchy {
+	PARENT_DNUMBER  : String(6);
+    VALID_FROM_DATE : LocalDate;
+    VALID_TO_DATE : LocalDate;
+    CHILD_DNUMBER  : String(6);
+};
+
+};
