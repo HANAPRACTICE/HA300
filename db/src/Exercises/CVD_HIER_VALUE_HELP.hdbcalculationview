@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" id="CVD_HIER_VALUE_HELP" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false" runWithInvokerPrivileges="true">
+<descriptions defaultDescription="Customers by Country"/>
+<localVariables>
+  <variable id="Choose_customer">
+    <descriptions defaultDescription="Choose_customer"/>
+    <variableProperties datatype="INTEGER" length="" scale="0" defaultValue="">
+      <valueDomain type="AttributeValue">
+        <attribute name="ID"/>
+        <hierarchyName>Customer_by_country_hier</hierarchyName>
+      </valueDomain>
+      <selection multiLine="true" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+</localVariables>
+<variableMappings/>
+<dataSources>
+  <DataSource id="Customers">
+    <resourceUri>Customers</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+<inlineHierarchy xsi:type="Dimension:LeveledHierarchy" id="Customer_by_country_hier" aggregateAllNodes="true" orphanedNodesHandling="ROOT_NODES" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="LEVEL_NAME_ENFORCED" cacheEnabled="true" cycleHandling="BREAKUP" emptyValueIsNull="true">
+  <descriptions defaultDescription="Customer_by_country_hier"/>
+  <unassignedMemberProperties mode="FALSE"/>
+  <levels>
+    <level levelAttribute="COUNTRY" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="COUNTRY" sortDirection="ASC"/>
+    <level levelAttribute="ID" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="ID" sortDirection="ASC"/>
+  </levels>
+</inlineHierarchy>
+<logicalModel id="Customers">
+  <attributes>
+    <attribute id="ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Customer ID"/>
+      <localVariable>Choose_customer</localVariable>
+      <keyMapping columnObjectName="Customers" columnName="ID"/>
+    </attribute>
+    <attribute id="NAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Customer Name"/>
+      <keyMapping columnObjectName="Customers" columnName="NAME"/>
+    </attribute>
+    <attribute id="ACTIVE" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Currently active?"/>
+      <keyMapping columnObjectName="Customers" columnName="ACTIVE"/>
+    </attribute>
+    <attribute id="COUNTRY" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Customer Country"/>
+      <keyMapping columnObjectName="Customers" columnName="COUNTRY"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

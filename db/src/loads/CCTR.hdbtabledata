@@ -1,0 +1,32 @@
+{
+    "format_version": 1,
+    "imports": [
+    {
+            "target_table": "CCTR.HIE_TIME",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "CCTR3.csv",
+                "has_header": true
+            },
+            "import_settings": {
+                "import_columns": [
+                    "CCTR_CHILD","CCTR_PARENT","DATE_FROM","DATE_TO","NODE_NAME"
+                ]
+            }
+        },
+    {
+            "target_table": "CCTR.COST",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "CCTR2.csv",
+                "has_header": true
+            },
+            "import_settings": {
+                "import_columns": [
+                    "CCTR","COST"
+                ]
+            }
+        }
+        
+    ]
+}

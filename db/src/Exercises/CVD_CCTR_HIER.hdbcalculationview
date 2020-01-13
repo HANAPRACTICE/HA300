@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:DataFoundation="http://www.sap.com/ndb/BiModelDataFoundation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" id="CVD_CCTR_HIER" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="COST CENTER WITH HIERARCHY"/>
+<localVariables>
+  <variable id="IP_EFF_DATE" parameter="true">
+    <descriptions defaultDescription="Hierarchy Effective Date"/>
+    <variableProperties datatype="DATE" mandatory="false" defaultValue="2015-1-1">
+      <valueDomain type="Date"/>
+      <selection multiLine="false" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+</localVariables>
+<variableMappings/>
+<dataSources>
+  <DataSource id="CCTR.HIE_TIME">
+    <resourceUri>CCTR.HIE_TIME</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1" filterExpressionLanguage="SQL">
+    <viewAttributes>
+      <viewAttribute id="CCTR_CHILD"/>
+      <viewAttribute id="CCTR_PARENT"/>
+      <viewAttribute id="DATE_FROM"/>
+      <viewAttribute id="DATE_TO"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CCTR.HIE_TIME"/>
+    <filter>&quot;DATE_FROM&quot; &lt;='$$IP_EFF_DATE$$' AND &quot;DATE_TO&quot;&gt;='$$IP_EFF_DATE$$'</filter>
+  </calculationView>
+</calculationViews>
+<inlineHierarchy xsi:type="Dimension:ParentChildHierarchy" id="HIER_CCTR_TIME_DEPENDENT" aggregateAllNodes="true" multipleParents="true" orphanedNodesHandling="IGNORE" rootNodeVisibility="ADD_ROOT_NODE_IF_DEFINED" cacheEnabled="true" cycleHandling="BREAKUP" emptyValueIsNull="true">
+  <descriptions defaultDescription="Time Dependent Cost Center Hierarchy"/>
+  <unassignedMemberProperties mode="FALSE"/>
+  <attributeParentPair attribute="CCTR_CHILD" parentAttribute="CCTR_PARENT"/>
+  <timeProperties>
+    <validFromElement xsi:type="DataFoundation:Attribute">DATE_FROM</validFromElement>
+    <validToElement xsi:type="DataFoundation:Attribute">DATE_TO</validToElement>
+    <pointInTimeVariable>IP_EFF_DATE</pointInTimeVariable>
+  </timeProperties>
+</inlineHierarchy>
+<logicalModel id="Projection_1" filterExpressionLanguage="SQL">
+  <attributes>
+    <attribute id="CCTR_CHILD" key="true" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CCTR_CHILD"/>
+      <keyMapping columnObjectName="Projection_1" columnName="CCTR_CHILD"/>
+    </attribute>
+    <attribute id="CCTR_PARENT" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CCTR_PARENT"/>
+      <keyMapping columnObjectName="Projection_1" columnName="CCTR_PARENT"/>
+    </attribute>
+    <attribute id="DATE_FROM" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DATE_FROM"/>
+      <keyMapping columnObjectName="Projection_1" columnName="DATE_FROM"/>
+    </attribute>
+    <attribute id="DATE_TO" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DATE_TO"/>
+      <keyMapping columnObjectName="Projection_1" columnName="DATE_TO"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="92" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="237"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

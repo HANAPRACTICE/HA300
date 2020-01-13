@@ -1,0 +1,6 @@
+context HIERARCHY {
+    entity SOURCE_DATA {
+        PARENT_ID : String(5);
+        NODE_ID   : String(5);
+    };
+};

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CVD_HIER_NAVIGATE" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="HIERARCHY NAVIGATION"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="CVD_HIER_GENERATE">
+    <resourceUri>CVD_HIER_GENERATE</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Generate">
+    <viewAttributes>
+      <viewAttribute id="HIERARCHY_RANK"/>
+      <viewAttribute id="HIERARCHY_TREE_SIZE"/>
+      <viewAttribute id="HIERARCHY_PARENT_RANK"/>
+      <viewAttribute id="HIERARCHY_LEVEL"/>
+      <viewAttribute id="HIERARCHY_IS_CYCLE"/>
+      <viewAttribute id="HIERARCHY_IS_ORPHAN"/>
+      <viewAttribute id="PARENT_ID"/>
+      <viewAttribute id="NODE_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CVD_HIER_GENERATE"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:HierarchyView" id="Navigate" function="HIERARCHY_DESCENDANTS">
+    <viewAttributes>
+      <viewAttribute datatype="INTEGER" id="HIERARCHY_DISTANCE"/>
+    
+      <viewAttribute datatype="BIGINT" id="START_RANK"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Generate">
+      <mapping xsi:type="Calculation:AttributeMapping" target="START_RANK" source="HIERARCHY_RANK"/>
+    </input>
+    <input node="Filter" type="generator"/>
+    <hierarchyDescendantsParameterization>
+      <distanceFrom>0</distanceFrom>
+      <distanceTo>2</distanceTo>
+    </hierarchyDescendantsParameterization>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Filter" filterExpressionLanguage="SQL">
+    <viewAttributes>
+      <viewAttribute id="HIERARCHY_RANK"/>
+      <viewAttribute id="HIERARCHY_TREE_SIZE"/>
+      <viewAttribute id="HIERARCHY_PARENT_RANK"/>
+      <viewAttribute id="HIERARCHY_LEVEL"/>
+      <viewAttribute id="HIERARCHY_IS_CYCLE"/>
+      <viewAttribute id="HIERARCHY_IS_ORPHAN"/>
+      <viewAttribute id="PARENT_ID"/>
+      <viewAttribute id="NODE_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Generate"/>
+    <filter>&quot;NODE_ID&quot;='B2'</filter>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Navigate">
+  <attributes>
+    <attribute id="HIERARCHY_DISTANCE" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="HIERARCHY_DISTANCE"/>
+      <keyMapping columnObjectName="Navigate" columnName="HIERARCHY_DISTANCE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="146.34018647396158" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Generate" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="150.16213126721695" y="501.9999976158142"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Navigate" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="146.34018647396158" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Filter" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="91.99999999999997" y="356.9999988079071"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

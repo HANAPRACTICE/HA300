@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" id="CVCS_CCTR_EXPENSES" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="Cost Center Expenses"/>
+<localVariables>
+  <variable id="IP_EFF_DATE" parameter="true">
+    <descriptions defaultDescription=" "/>
+    <variableProperties datatype="DATE">
+      <valueDomain type="Date"/>
+      <selection/>
+      <defaultRange lowValue="2015-1-1"/>
+    </variableProperties>
+  </variable>
+</localVariables>
+<variableMappings>
+  <mapping xsi:type="Variable:VariableMapping" forStarJoin="true">
+    <targetVariable name="IP_EFF_DATE" resourceUri="CVD_CCTR_HIER"/>
+    <localVariable>IP_EFF_DATE</localVariable>
+  </mapping>
+</variableMappings>
+<dataSources>
+  <DataSource id="CCTR.COST">
+    <resourceUri>CCTR.COST</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+    <viewAttributes>
+      <viewAttribute id="CCTR"/>
+      <viewAttribute id="COST" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="CCTR.COST"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Aggregation_1">
+  <attributes>
+    <attribute id="CCTR$local">
+      <descriptions defaultDescription="CCTR"/>
+      <keyMapping columnObjectName="Aggregation_1" columnName="CCTR"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="COST" order="1" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="COST"/>
+      <measureMapping columnObjectName="Aggregation_1" columnName="COST"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+  <sharedDimensions>
+    <logicalJoin associatedObjectUri="CVD_CCTR_HIER">
+      <attributes>
+        <attributeRef>CCTR$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>CCTR_CHILD</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="CN_1" joinType="referential" joinOperator="Equal"/>
+      <associatedAttributeFeatures/>
+    </logicalJoin>
+  </sharedDimensions>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="94" y="195"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Aggregation_1" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="CVD_CCTR_HIER" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="166.4697265625"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

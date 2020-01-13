@@ -1,0 +1,19 @@
+{
+    "format_version": 1,
+    "imports": [
+    {
+            "target_table": "HIERARCHY.SOURCE_DATA",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "HIERARCHY_SOURCE_DATA.csv",
+                "has_header": true
+            },
+            "import_settings": {
+                "import_columns": [
+                    "PARENT_ID","NODE_ID"
+                ]
+            }
+        }
+        
+    ]
+}

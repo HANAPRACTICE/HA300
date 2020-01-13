@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CVD_HIER_GENERATE" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="Hierarchy Generation"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="HIERARCHY.SOURCE_DATA">
+    <resourceUri>HIERARCHY.SOURCE_DATA</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:HierarchyView" id="Hierarchy_1" function="HIERARCHY">
+    <viewAttributes>
+      <viewAttribute datatype="BIGINT" id="HIERARCHY_RANK"/>
+      <viewAttribute datatype="BIGINT" id="HIERARCHY_TREE_SIZE"/>
+      <viewAttribute datatype="BIGINT" id="HIERARCHY_PARENT_RANK"/>
+      <viewAttribute datatype="INTEGER" id="HIERARCHY_LEVEL"/>
+      <viewAttribute datatype="TINYINT" id="HIERARCHY_IS_CYCLE"/>
+      <viewAttribute datatype="TINYINT" id="HIERARCHY_IS_ORPHAN"/>
+      <viewAttribute datatype="NVARCHAR" length="5" id="PARENT_ID"/>
+      <viewAttribute datatype="NVARCHAR" length="5" id="NODE_ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="HIERARCHY.SOURCE_DATA">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_ID" source="PARENT_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NODE_ID" source="NODE_ID"/>
+    </input>
+    <hierarchyParameterization>
+      <startWhere>&quot;NODE_ID&quot;='A1'</startWhere>
+    </hierarchyParameterization>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Hierarchy_1">
+  <attributes>
+    <attribute id="HIERARCHY_RANK" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="HIERARCHY_RANK"/>
+      <keyMapping columnObjectName="Hierarchy_1" columnName="HIERARCHY_RANK"/>
+    </attribute>
+    <attribute id="HIERARCHY_TREE_SIZE" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="HIERARCHY_TREE_SIZE"/>
+      <keyMapping columnObjectName="Hierarchy_1" columnName="HIERARCHY_TREE_SIZE"/>
+    </attribute>
+    <attribute id="HIERARCHY_PARENT_RANK" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="HIERARCHY_PARENT_RANK"/>
+      <keyMapping columnObjectName="Hierarchy_1" columnName="HIERARCHY_PARENT_RANK"/>
+    </attribute>
+    <attribute id="HIERARCHY_LEVEL" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="HIERARCHY_LEVEL"/>
+      <keyMapping columnObjectName="Hierarchy_1" columnName="HIERARCHY_LEVEL"/>
+    </attribute>
+    <attribute id="HIERARCHY_IS_CYCLE" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="HIERARCHY_IS_CYCLE"/>
+      <keyMapping columnObjectName="Hierarchy_1" columnName="HIERARCHY_IS_CYCLE"/>
+    </attribute>
+    <attribute id="HIERARCHY_IS_ORPHAN" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="HIERARCHY_IS_ORPHAN"/>
+      <keyMapping columnObjectName="Hierarchy_1" columnName="HIERARCHY_IS_ORPHAN"/>
+    </attribute>
+    <attribute id="PARENT_ID" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PARENT_ID"/>
+      <keyMapping columnObjectName="Hierarchy_1" columnName="PARENT_ID"/>
+    </attribute>
+    <attribute id="NODE_ID" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NODE_ID"/>
+      <keyMapping columnObjectName="Hierarchy_1" columnName="NODE_ID"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="92" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Hierarchy_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

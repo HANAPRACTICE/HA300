@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CVC_SO_CCY" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="CV with currency conversion"/>
+<localVariables>
+  <variable id="IP_CNV_DATE" parameter="true">
+    <descriptions defaultDescription="IP_CNV_DATE"/>
+    <variableProperties datatype="DATE" mandatory="true">
+      <valueDomain type="StaticList">
+        <listEntry id="20200111">
+          <descriptions defaultDescription="11/01/2020"/>
+        </listEntry>
+      </valueDomain>
+      <selection multiLine="false" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+</localVariables>
+<variableMappings/>
+<dataSources>
+  <DataSource id="SO.Header">
+    <resourceUri>SO.Header</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+<logicalModel id="SO.Header">
+  <attributes>
+    <attribute id="SALESORDERID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SALESORDERID"/>
+      <keyMapping columnObjectName="SO.Header" columnName="SALESORDERID"/>
+    </attribute>
+    <attribute id="CURRENCY" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CURRENCY"/>
+      <keyMapping columnObjectName="SO.Header" columnName="CURRENCY"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="GROSSAMOUNT_SRC" order="3" semanticType="amount" aggregationType="sum" measureType="amount">
+      <descriptions defaultDescription="GROSSAMOUNT"/>
+      <unitCurrencyAttribute attributeName="CURRENCY"/>
+      <measureMapping columnObjectName="SO.Header" columnName="GROSSAMOUNT"/>
+    </measure>
+    <measure id="GROSSAMOUNT_USD" order="4" semanticType="amount" aggregationType="sum" measureType="amount" unconverted="false">
+      <descriptions defaultDescription="GROSSAMOUNT_1"/>
+      <fixedCurrency>USD</fixedCurrency>
+      <currencyConversion generateOutputUnitCurrencyAttribute="true" outputUnitCurrencyAttributeName="GROSSAMOUNT_USD_CURRENCY" convert="true" accuracy="COMPATIBILITY" method="ERP" lookup="REGULAR">
+        <client>
+          <value>001</value>
+        </client>
+        <currencyConversionTables rates="Conversions.TCURR" configuration="Conversions.TCURV" prefactors="Conversions.TCURF" notations="Conversions.TCURN" precisions="Conversions.TCURX"/>
+        <outputDataType datatype="DECIMAL" length="15" scale="2"/>
+        <sourceCurrency>
+          <attribute attributeName="CURRENCY"/>
+        </sourceCurrency>
+        <erpDecimalShift>true</erpDecimalShift>
+        <targetCurrency>
+          <value>USD</value>
+        </targetCurrency>
+        <referenceDate>
+          <localVariable>IP_CNV_DATE</localVariable>
+        </referenceDate>
+        <exchangeRateType>M</exchangeRateType>
+      </currencyConversion>
+      <measureMapping columnObjectName="SO.Header" columnName="GROSSAMOUNT"/>
+    </measure>
+    <measure id="NETAMOUNT_SRC" order="5" semanticType="amount" aggregationType="sum" measureType="amount">
+      <descriptions defaultDescription="NETAMOUNT"/>
+      <unitCurrencyAttribute attributeName="CURRENCY"/>
+      <measureMapping columnObjectName="SO.Header" columnName="NETAMOUNT"/>
+    </measure>
+    <measure id="NETAMOUNT_USD" order="6" semanticType="amount" aggregationType="sum" measureType="amount">
+      <descriptions defaultDescription="NETAMOUNT_1"/>
+      <conversionReference>GROSSAMOUNT_USD</conversionReference>
+      <measureMapping columnObjectName="SO.Header" columnName="NETAMOUNT"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

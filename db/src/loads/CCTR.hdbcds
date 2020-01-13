@@ -1,0 +1,17 @@
+context CCTR 
+{
+entity HIE_TIME
+{
+	CCTR_CHILD  : String(10);
+    CCTR_PARENT  : String(10);
+    DATE_FROM : LocalDate;
+    DATE_TO : LocalDate;
+    NODE_NAME: String(30);
+	};
+	
+	entity COST
+{
+	CCTR  : String(10);
+    COST  : Decimal(5, 2);
+    };
+};
