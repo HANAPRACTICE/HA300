@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" id="CVD_ADDRESSES" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="CV DIMENSION FOR ADDRESS"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="MD.Addresses">
+    <resourceUri>MD.Addresses</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+<inlineHierarchy xsi:type="Dimension:LeveledHierarchy" id="H_GEO" aggregateAllNodes="true" orphanedNodesHandling="ROOT_NODES" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="LEVEL_NAME_ENFORCED" cacheEnabled="true" cycleHandling="BREAKUP" emptyValueIsNull="true">
+  <descriptions defaultDescription="H_GEO"/>
+  <unassignedMemberProperties mode="FALSE"/>
+  <levels>
+    <level levelAttribute="COUNTRY" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="COUNTRY" sortDirection="ASC"/>
+    <level levelAttribute="CITY" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="CITY" sortDirection="ASC"/>
+  </levels>
+</inlineHierarchy>
+<logicalModel id="MD.Addresses">
+  <attributes>
+    <attribute id="ADDRESSTYPE" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ADDRESSTYPE"/>
+      <keyMapping columnObjectName="MD.Addresses" columnName="ADDRESSTYPE"/>
+    </attribute>
+    <attribute id="NODE_KEY" order="2" displayAttribute="false" attributeHierarchyActive="false" key="true">
+      <descriptions defaultDescription="ADDRESSID"/>
+      <keyMapping columnObjectName="MD.Addresses" columnName="ADDRESSID"/>
+    </attribute>
+    <attribute id="CITY" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CITY"/>
+      <keyMapping columnObjectName="MD.Addresses" columnName="CITY"/>
+    </attribute>
+    <attribute id="POSTALCODE" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="POSTALCODE"/>
+      <keyMapping columnObjectName="MD.Addresses" columnName="POSTALCODE"/>
+    </attribute>
+    <attribute id="STREET" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="STREET"/>
+      <keyMapping columnObjectName="MD.Addresses" columnName="STREET"/>
+    </attribute>
+    <attribute id="BUILDING" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="BUILDING"/>
+      <keyMapping columnObjectName="MD.Addresses" columnName="BUILDING"/>
+    </attribute>
+    <attribute id="COUNTRY" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COUNTRY"/>
+      <keyMapping columnObjectName="MD.Addresses" columnName="COUNTRY"/>
+    </attribute>
+    <attribute id="VALIDITY_STARTDATE" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="VALIDITY_STARTDATE"/>
+      <keyMapping columnObjectName="MD.Addresses" columnName="VALIDITY.STARTDATE"/>
+    </attribute>
+    <attribute id="VALIDITY_ENDDATE" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="VALIDITY_ENDDATE"/>
+      <keyMapping columnObjectName="MD.Addresses" columnName="VALIDITY.ENDDATE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CVCS_EMPLOYEES" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" cacheInvalidationPeriod="NONE" enforceSqlExecution="false" hierarchiesSQLEnabled="true">
+<descriptions defaultDescription="CVCS_EMPLOYEES"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="MD.Employees">
+    <resourceUri>MD.Employees</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <viewAttributes>
+      <viewAttribute id="EMPLOYEEID"/>
+      <viewAttribute id="NAME_FIRST"/>
+      <viewAttribute id="NAME_LAST"/>
+      <viewAttribute id="SEX"/>
+      <viewAttribute id="LANGUAGE"/>
+      <viewAttribute id="ADDRESSES_ADDRESSID"/>
+      <viewAttribute id="CURRENCY"/>
+      <viewAttribute id="SALARYAMOUNT"/>
+      <viewAttribute id="EMAILADDRESS"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="MD.Employees">
+      <mapping xsi:type="Calculation:AttributeMapping" target="NAME_FIRST" source="NAME.FIRST"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NAME_LAST" source="NAME.LAST"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ADDRESSES_ADDRESSID" source="ADDRESSES.ADDRESSID"/>
+    </input>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Projection_1">
+  <attributes>
+    <attribute id="EMPLOYEEID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="EMPLOYEEID"/>
+      <keyMapping columnObjectName="Projection_1" columnName="EMPLOYEEID"/>
+    </attribute>
+    <attribute id="NAME_FIRST" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NAME_FIRST"/>
+      <keyMapping columnObjectName="Projection_1" columnName="NAME_FIRST"/>
+    </attribute>
+    <attribute id="NAME_LAST" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NAME_LAST"/>
+      <keyMapping columnObjectName="Projection_1" columnName="NAME_LAST"/>
+    </attribute>
+    <attribute id="SEX" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SEX"/>
+      <keyMapping columnObjectName="Projection_1" columnName="SEX"/>
+    </attribute>
+    <attribute id="LANGUAGE" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="LANGUAGE"/>
+      <keyMapping columnObjectName="Projection_1" columnName="LANGUAGE"/>
+    </attribute>
+    <attribute id="CURRENCY" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CURRENCY"/>
+      <keyMapping columnObjectName="Projection_1" columnName="CURRENCY"/>
+    </attribute>
+    <attribute id="EMAILADDRESS" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="EMAILADDRESS"/>
+      <keyMapping columnObjectName="Projection_1" columnName="EMAILADDRESS"/>
+    </attribute>
+    <attribute id="ADDRESSES_ADDRESSID$local">
+      <descriptions defaultDescription="ADDRESSES_ADDRESSID"/>
+      <keyMapping columnObjectName="Projection_1" columnName="ADDRESSES_ADDRESSID"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="SALARYAMOUNT" order="7" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="SALARYAMOUNT"/>
+      <measureMapping columnObjectName="Projection_1" columnName="SALARYAMOUNT"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+  <sharedDimensions>
+    <logicalJoin associatedObjectUri="CVD_ADDRESSES">
+      <attributes>
+        <attributeRef>ADDRESSES_ADDRESSID$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>NODE_KEY</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="C1_1" joinType="referential" joinOperator="Equal"/>
+      <associatedAttributeFeatures/>
+      <associatedHierarchyFeature hierarchyName="H_GEO">
+        <joinProperties nodeElementName="H_GEOnode_1" expressionParameterName="H_GEOexpr_1"/>
+      </associatedHierarchyFeature>
+    </logicalJoin>
+  </sharedDimensions>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="93" y="229"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="CVD_ADDRESSES" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="426" y="17"/>
+      <rectangleSize width="203.7666015625"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
