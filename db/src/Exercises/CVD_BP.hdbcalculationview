@@ -93,7 +93,7 @@
       <keyCalculation datatype="VARCHAR" expressionLanguage="SQL" length="70">
         <formula>&quot;FIRST_NAME&quot; || ' ' || &quot;LAST_NAME&quot;</formula>
       </keyCalculation>
-      </calculatedAttribute>
+    </calculatedAttribute>
   </calculatedAttributes>
   <baseMeasures/>
   <calculatedMeasures/>
@@ -102,32 +102,34 @@
 <layout>
   <shapes>
     <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
-      <upperLeftCorner x="40" y="85"/>
+      <upperLeftCorner x="92" y="112"/>
+    
+      <rectangleSize width="160"/>
     </shape>
   
     <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="-136" y="159"/>
+      <upperLeftCorner x="92" y="357"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape modelObjectName="MD.BusinessPartner" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="20" y="30"/>
-      <rectangleSize width="278.97265625"/>
+      <rectangleSize width="278"/>
     </shape>
     <shape modelObjectName="MD.CONTACT" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="368" y="30"/>
-      <rectangleSize width="221.08837890625"/>
+      <rectangleSize width="221"/>
     </shape>
     <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="-191" y="-66"/>
+      <upperLeftCorner x="92" y="217"/>
       <rectangleSize height="30" width="160"/>
     </shape>
     <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="20" y="30"/>
-      <rectangleSize width="172.58203125"/>
+      <rectangleSize width="172"/>
     </shape>
     <shape modelObjectName="MD.EMAIL" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="320" y="30"/>
-      <rectangleSize width="221.08837890625"/>
+      <rectangleSize width="221"/>
     </shape>
   </shapes>
 </layout>

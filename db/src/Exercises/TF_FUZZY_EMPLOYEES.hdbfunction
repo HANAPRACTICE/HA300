@@ -1,0 +1,23 @@
+FUNCTION "TF_FUZZY_EMPLOYEES"( LASTNAME_FILTER NVARCHAR (40), SEX NVARCHAR(1))
+       RETURNS TABLE ("NAME.FIRST" NVARCHAR(40),
+       "NAME.LAST" NVARCHAR(40),
+       "SEX" NVARCHAR(1),
+       "LANGUAGE" NVARCHAR(1),
+		"EMAILADDRESS" NVARCHAR(255)
+)
+      -- <return_parameter_list|return_table_type> 
+       LANGUAGE SQLSCRIPT 
+       SQL SECURITY INVOKER AS 
+BEGIN 
+    
+RETURN
+select
+"NAME.FIRST",
+"NAME.LAST",
+"SEX",
+"LANGUAGE",
+"EMAILADDRESS"
+from "MD.Employees"
+where contains("NAME.LAST", :LASTNAME_FILTER, FUZZY(0.5)) AND  contains ("SEX", :SEX);
+   
+END;
