@@ -1,0 +1,2 @@
+CVC_EMPL_SAL_PRUNING,Empl_Salary_Current,Year,>=,2017,
+CVC_EMPL_SAL_PRUNING,Empl_Salary_Historical,Year,<,2017,

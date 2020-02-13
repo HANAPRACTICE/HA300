@@ -1,0 +1,13 @@
+/*@@layout{"layoutInfo":{"x":-406,"y":-121.5}}*/
+entity Empl_Salary_Current {
+    key Year        : Integer;
+    key EmployeeID  : Integer;
+        TotalSalary : Decimal(10, 2);
+};
+
+/*@@layout{"layoutInfo":{"x":-137,"y":-122.5}}*/
+entity Empl_Salary_Historical {
+    key Year        : Integer;
+    key EmployeeID  : Integer;
+        TotalSalary : Decimal(10, 2);
+};

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Privilege:analyticPrivilege xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" id="AP_Talpa" privilegeType="SQL_ANALYTIC_PRIVILEGE" schemaVersion="1.1">
+<descriptions defaultDescription="AP_Talpa company"/>
+<securedModels>
+  <modelUri>CVCS_PO2</modelUri>
+</securedModels>
+
+<validity xsi:type="AccessControl:RangeValueFilter" operator="BT" including="true" lowValue="2020-02-05" highValue="2020-02-07"/>
+<restriction>
+  <filter attributeName="COMPANYNAME" xsi:type="Privilege:AttributeFilter">
+    <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Talpa" lowValue="undefined" highValue="undefined"/>
+  </filter>
+  <attributeName>COMPANYNAME</attributeName>
+  <originInformationModelUri>CVCS_PO2</originInformationModelUri>
+</restriction>
+</Privilege:analyticPrivilege>

@@ -1,0 +1,15 @@
+KEY,SOURCE,TARGET,RELATIONSHIP
+1,Hans-Joochim,SAP,Works for
+2,Hans-Joachim,Michelle,Married to
+3,Michelle,Hans-Joachim,Married to
+4,Tshepo,Hans-Joachim,Reports to
+5,Philip,Hans-Joachim,Reports to
+6,Sikhumbuzo,Hans-Joachim,Reports to
+7,Tshepo,SAP,Works for
+8,Tshepo,Lerato,Married to
+9,Lerato,Tshepo,Married to
+10,Lerato,SAP,Works for
+11,Shikhumbuzo,SAP,Works for
+12,Philip,SAP,Works for
+13,Philip,Kele,Married to
+14,Kele,Philip,Married to

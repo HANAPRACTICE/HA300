@@ -1,0 +1,13 @@
+context "Graphteam" {
+    entity MEMBERS {
+        key NAME : String(100) not null;
+            TYPE : String(100);
+    };
+
+    entity RELATIONSHIPS {
+        key KEY         : Integer      not null;
+            SOURCE      : String(100) not null;
+            TARGET      : String(100) not null;
+            RELATIONSHIP : String(100) not null;
+    };
+};

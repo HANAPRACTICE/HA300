@@ -1,0 +1,9 @@
+{
+	"role":{
+		"name": "Data_Viewer",
+		"schema_analytic_privileges": [{
+			
+		   "privileges": ["AP_Talpa" ]
+		}]
+	}
+}

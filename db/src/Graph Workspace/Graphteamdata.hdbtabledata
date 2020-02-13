@@ -1,0 +1,29 @@
+{
+	"format_version": 1,
+	"imports": [{
+		"target_table": "Graphteam.MEMBERS",
+		"source_data": {
+			"data_type": "CSV",
+			"file_name": "Members.csv",
+			"has_header": true
+		},
+		"import_settings": {
+			"import_columns": [
+				"NAME", "TYPE"
+			]
+		}
+	}, {
+			"target_table": "Graphteam.RELATIONSHIPS",
+			"source_data": {
+				"data_type": "CSV",
+				"file_name": "Relationships.csv",
+				"has_header": true
+			},
+			"import_settings": {
+				"import_columns": [
+					"KEY","SOURCE","TARGET","RELATIONSHIP"
+				]
+			}
+		}
+	]
+}

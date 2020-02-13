@@ -1,0 +1,8 @@
+Entity Empl_Salary_Pruning{
+CALC_SCENARIO :String(256);
+INPUT :String(256);
+COLUMN :String(256);
+OPTION :String(256);
+LOW_VALUE :String(256);
+HIGH_VALUE :String(256);
+};
